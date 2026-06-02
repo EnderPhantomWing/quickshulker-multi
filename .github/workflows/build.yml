@@ -93,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: quickshulker-${{ env.COMMIT_HASH }}
-          path: mod-jars/*.jar
+          path: mod-jars/
 
   summary:
     runs-on: ubuntu-latest

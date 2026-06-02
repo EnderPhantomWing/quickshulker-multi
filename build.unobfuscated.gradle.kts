@@ -1,5 +1,6 @@
 plugins {
     id("maven-publish")
+    id("signing")
     id("mod-plugin")
     id("net.fabricmc.fabric-loom")
     id("com.github.hierynomus.license")
@@ -90,6 +91,32 @@ license {
         }
     }
     mapping(mapOf("java" to "SLASHSTAR_STYLE_NEWLINE"))
+}
+
+tasks.register("signJar") {
+    val keyId = System.getenv("GPG_SIGNING_KEY_ID") ?: project.findProperty("signing.keyId") as? String
+    val password = System.getenv("GPG_SIGNING_PASSWORD") ?: project.findProperty("signing.password") as? String
+    val secretKey = System.getenv("GPG_SIGNING_KEY") ?: project.findProperty("signing.secretKey") as? String
+
+    onlyIf {
+        keyId != null && password != null && secretKey != null
+    }
+
+    doFirst {
+        // 将密钥信息设置到项目扩展属性中，供签名插件使用
+        project.extra["signing.keyId"] = keyId
+        project.extra["signing.password"] = password
+
+        // 配置签名插件使用内存中的 PGP 密钥
+        signing {
+            useInMemoryPgpKeys(keyId, secretKey, password)
+            sign("jar")
+        }
+    }
+}
+
+tasks.named("build") {
+    dependsOn("signJar")
 }
 
 publishing {
