@@ -115,6 +115,7 @@ public class BundleHelper {
     public static ItemStack unbundleItem(Player player, ItemStack hostStack, Slot unbundleSlot) {
         Container inv = Util.getQuickItemInventory(player, hostStack);
         ItemStack output = null;
+        assert inv != null;
         for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
             output = inv.getItem(i);
             if (!output.isEmpty() && unbundleSlot.mayPlace(output)) {

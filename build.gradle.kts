@@ -20,9 +20,7 @@ preprocess {
     val mc260102    = createNode("26.1.2",  26_01_02,   "official")
     val mc260200    = createNode("26.2",    26_02_00,   "official")
 
-    //1.20.6~before
-    mc12101.link(   mc12006,    null)
-    //1.21.1~latest
+    mc12006.link(   mc12101,    null)
     mc12101.link(   mc12103,    null)
     mc12103.link(   mc12104,    null)
     mc12104.link(   mc12105,    null)

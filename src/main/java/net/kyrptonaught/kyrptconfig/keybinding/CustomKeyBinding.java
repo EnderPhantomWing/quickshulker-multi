@@ -95,15 +95,15 @@ public class CustomKeyBinding implements CustomSerializable {
         boolean pressed;
         if (parsedKey.getType() == InputConstants.Type.MOUSE)
             //#if MC >= 1.21.10
-            //$$ pressed = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), parsedKey.getValue()) == 1;
+            pressed = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().handle(), parsedKey.getValue()) == 1;
             //#else
-            pressed = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), parsedKey.getValue()) == 1;
+            //$$ pressed = GLFW.glfwGetMouseButton(Minecraft.getInstance().getWindow().getWindow(), parsedKey.getValue()) == 1;
             //#endif
         else
             //#if MC >= 1.21.10
-            //$$ pressed = GLFW.glfwGetKey(Minecraft.getInstance().getWindow().handle(), parsedKey.getValue()) == 1;
+            pressed = GLFW.glfwGetKey(Minecraft.getInstance().getWindow().handle(), parsedKey.getValue()) == 1;
             //#else
-            pressed = GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(), parsedKey.getValue()) == 1;
+            //$$ pressed = GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(), parsedKey.getValue()) == 1;
             //#endif
         return pressed;
     }

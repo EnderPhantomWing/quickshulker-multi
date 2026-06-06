@@ -40,9 +40,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(AbstractContainerScreen.class)
 public interface AbstractContainerScreenInvoker {
     //#if MC >= 1.21.2
-    //$$ @Invoker("getHoveredSlot")
+    @Invoker("getHoveredSlot")
     //#else
-    @Invoker("findSlot")
+    //$$ @Invoker("findSlot")
     //#endif
     Slot QS$getSlotAt(double mouseX, double mouseY);
 

@@ -35,21 +35,21 @@ import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 //#endif
 //#if MC >= 1.21.11
-//$$ import net.minecraft.resources.Identifier;
+import net.minecraft.resources.Identifier;
 //#elseif MC >=1.21.10
 //$$ import net.minecraft.resources.ResourceLocation;
 //#endif
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyMapping;
 //#endif
 
 public class KeyBindingRegister {
     //#if MC >= 1.21.11
-    //$$ public static final KeyMapping.Category MAIN = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(QuickShulkerMod.MOD_ID, "main"));
+    public static final KeyMapping.Category MAIN = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(QuickShulkerMod.MOD_ID, "main"));
     //#elseif MC >= 1.21.10
     //$$ public static final KeyMapping.Category MAIN = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(QuickShulkerMod.MOD_ID, "main"));
     //#else
-    public static final String MAIN = "key.categories.quickshulker";
+    //$$ public static final String MAIN = "key.categories.quickshulker";
     //#endif
 
     public static void register() {

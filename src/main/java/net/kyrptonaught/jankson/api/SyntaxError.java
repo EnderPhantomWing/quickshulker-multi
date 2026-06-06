@@ -24,7 +24,6 @@
 
 package net.kyrptonaught.jankson.api;
 
-@SuppressWarnings("serial")
 public class SyntaxError extends Exception {
     int startLine = -1;
     int startColumn = -1;

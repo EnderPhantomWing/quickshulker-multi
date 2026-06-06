@@ -58,9 +58,9 @@ public class ModKeyCallback {
                     ClientUtil.CheckAndSend(player.getOffhandItem(), 45);
                 else
                     //#if MC >= 1.21.5
-                    //$$ ClientUtil.CheckAndSend(player.getMainHandItem(), 36 + player.getInventory().getSelectedSlot());
+                    ClientUtil.CheckAndSend(player.getMainHandItem(), 36 + player.getInventory().getSelectedSlot());
                     //#else
-                    ClientUtil.CheckAndSend(player.getMainHandItem(), 36 + player.getInventory().selected);
+                    //$$ ClientUtil.CheckAndSend(player.getMainHandItem(), 36 + player.getInventory().selected);
                     //#endif
             }
         }

@@ -51,9 +51,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 //#if MC >= 1.21.2
-//$$ import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResult;
 //#else
-import net.minecraft.world.InteractionResultHolder;
+//$$ import net.minecraft.world.InteractionResultHolder;
 //#endif
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,24 +83,24 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     if (Util.isOpenableItem(stack) && Util.canOpenInHand(stack)) {
                         if (hand == InteractionHand.MAIN_HAND)
                             //#if MC >= 1.21.5
-                            //$$ Util.openItem(player, 0, player.getInventory().getSelectedSlot());
+                            Util.openItem(player, 0, player.getInventory().getSelectedSlot());
                             //#else
-                            Util.openItem(player, 0, player.getInventory().selected);
+                            //$$ Util.openItem(player, 0, player.getInventory().selected);
                             //#endif
                         else Util.openItem(player, 0, Inventory.SLOT_OFFHAND);
 
                         //#if MC >= 1.21.2
-                        //$$ return InteractionResult.SUCCESS_SERVER;
+                        return InteractionResult.SUCCESS_SERVER;
                         //#else
-                        return InteractionResultHolder.success(stack);
+                        //$$ return InteractionResultHolder.success(stack);
                         //#endif
                     }
                 }
             }
             //#if MC >= 1.21.2
-            //$$ return InteractionResult.PASS;
+            return InteractionResult.PASS;
             //#else
-            return InteractionResultHolder.pass(stack);
+            //$$ return InteractionResultHolder.pass(stack);
             //#endif
         });
 
@@ -136,9 +136,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$ new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.crafting")))))
+                            new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.crafting")))))
                             //#else
-                            new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.crafting")))))
+                            //$$ new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.crafting")))))
                             //#endif
                     .register();
 
@@ -148,9 +148,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$ new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.stonecutter")))))
+                            new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.stonecutter")))))
                             //#else
-                            new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.stonecutter")))))
+                            //$$ new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.stonecutter")))))
                             //#endif
                     .register();
 
@@ -160,9 +160,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$  new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.repair")))))
+                             new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.repair")))))
                             //#else
-                            new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.repair")))))
+                            //$$ new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.repair")))))
                             //#endif
                     .register();
         if (getConfig().quickGrindstone)
@@ -171,9 +171,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$ new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
+                            new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
                             //#else
-                            new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
+                            //$$ new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
                             //#endif
                     .register();
         if (getConfig().quickSmithingTable)
@@ -182,9 +182,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$ new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.upgrade")))))
+                            new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.upgrade")))))
                             //#else
-                            new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.upgrade")))))
+                            //$$ new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.upgrade")))))
                             //#endif
                     .register();
         if (getConfig().quickLoom)
@@ -193,9 +193,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                             //#if MC >= 1.21.6
-                            //$$ new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.loom")))))
+                            new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.loom")))))
                             //#else
-                            new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.loom")))))
+                            //$$ new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.loom")))))
                             //#endif
                     .register();
 

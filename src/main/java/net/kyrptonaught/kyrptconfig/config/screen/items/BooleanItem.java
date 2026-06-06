@@ -32,7 +32,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#else
 //#endif
 
@@ -41,9 +41,7 @@ public class BooleanItem extends ConfigItem<Boolean> {
 
     public BooleanItem(Component name, Boolean value, Boolean defaultValue) {
         super(name, value, defaultValue);
-        this.boolWidget = new NotSuckyButton(0, 0, 100, 20, Component.literal("BoolButton"), widget -> {
-            setValue(!this.value);
-        });
+        this.boolWidget = new NotSuckyButton(0, 0, 100, 20, Component.literal("BoolButton"), widget -> setValue(!this.value));
         setValue(value);
         useDefaultResetBTN();
     }
@@ -62,15 +60,15 @@ public class BooleanItem extends ConfigItem<Boolean> {
 
     @Override
     //#if MC >= 1.21.10
-    //$$ public void mouseClicked(MouseButtonEvent click, boolean doubled) {
-    //$$     super.mouseClicked(click, doubled);
-    //$$     boolWidget.mouseClicked(click, doubled);
-    //$$ }
-    //#else
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-        super.mouseClicked(mouseX, mouseY, button);
-        boolWidget.mouseClicked(mouseX, mouseY, button);
+    public void mouseClicked(MouseButtonEvent click, boolean doubled) {
+        super.mouseClicked(click, doubled);
+        boolWidget.mouseClicked(click, doubled);
     }
+    //#else
+    //$$ public void mouseClicked(double mouseX, double mouseY, int button) {
+    //$$     super.mouseClicked(mouseX, mouseY, button);
+    //$$     boolWidget.mouseClicked(mouseX, mouseY, button);
+    //$$ }
     //#endif
 
     @Override

@@ -43,14 +43,10 @@ public class EventListeners {
     public static void registerEventListeners() {
 
         // Log in
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            EnderChestSyncHandler.syncEnderChestContent(handler.player);
-        });
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> EnderChestSyncHandler.syncEnderChestContent(handler.player));
 
         // Respawn
-        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-            EnderChestSyncHandler.syncEnderChestContent(newPlayer);
-        });
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> EnderChestSyncHandler.syncEnderChestContent(newPlayer));
 
         // Change dimension
         //#if MC >= 26.1
