@@ -116,7 +116,7 @@ jobs:
       download_dependencies: true
 
   publish:
-    if: github.event.inputs.isPackages == true
+    if: github.event.inputs.isPackages != false
     uses: ./.github/workflows/publish.yml
     secrets: inherit
     needs:
@@ -235,12 +235,12 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
 
           # https://legacy.curseforge.com/account/api-tokens
-          # curseforge-id: 314159
-          # curseforge-token: ${{ secrets.CF_API_TOKEN }}
+          curseforge-id: 1566301
+          curseforge-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
 
-          # github-tag: ${{ steps.release_info.outputs.tag_name }}
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
-          # github-prerelease: ${{ github.event.inputs.isPreRelease }}
+          github-tag: ${{ steps.release_info.outputs.tag_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-prerelease: ${{ github.event.inputs.isPreRelease }}
 
           files: ${{ steps.file_info.outputs.path }}
 

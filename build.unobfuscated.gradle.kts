@@ -14,7 +14,9 @@ repositories {
         forRepository { maven(url) }
         filter {
             groups.forEach {
+                @Suppress("UnstableApiUsage")
                 includeGroupAndSubgroups(it)
+                @Suppress("UnstableApiUsage")
                 includeGroupAndSubgroups("$it.*")
             }
         }
@@ -100,8 +102,8 @@ publishing {
     publications {
         register("mavenJava", MavenPublication::class) {
             from(components["java"])
-            artifactId = "${prop("mod_id")}-${prop("minecraft_version")}"
-            version = modVersion
+            artifactId = "${prop("minecraft_version")}"
+            version = "$modArchivesBaseName-$modVersion"
         }
     }
 
@@ -113,8 +115,8 @@ publishing {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/EnderPhantomWing/quickshulker-multi")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
+                    username = System.getenv("GH_USERNAME")
+                    password = System.getenv("GH_TOKEN")
                 }
             }
         }

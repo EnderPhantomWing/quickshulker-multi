@@ -58,4 +58,4 @@ fun parseMcVersionToNumber(mcVersionStr: String): Int {
     }
 }
 
-rootProject.name = "quickshulker"
+rootProject.name = "quickshulker-multi"

@@ -61,6 +61,15 @@ jobs:
           BUILD_RELEASE: ${{ inputs.release }}
 
       - name: Publish artifacts
-        run: ./gradlew publish --stacktrace
+        run: |
+          if [ -z "${{ inputs.target_subproject }}" ]; then
+              echo "Publishing all subprojects"
+              ./gradlew publish --stacktrace
+          else
+              args=$(echo "${{ inputs.target_subproject }}" | tr ',' '\n' | sed 's/$/:publish/' | paste -sd ' ')
+              echo "Publishing with arguments=$args"
+              ./gradlew $args --stacktrace
+          fi
         env:
           BUILD_ID: ${{ github.run_number }}
+          BUILD_RELEASE: ${{ inputs.release }}

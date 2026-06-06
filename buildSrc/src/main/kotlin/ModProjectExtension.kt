@@ -45,6 +45,13 @@ val Project.javaVersion
     }
 val Project.mixinJavaVersion get() = "JAVA_${javaVersion}"
 
+fun String.removeBuildSuffix(): String {
+    // 匹配三种模式并移除（从末尾匹配）
+    val regex = Regex("""-(?:[A-Za-z0-9]+-(?:release|\d+)|development)$""")
+    return this.replace(regex, "")
+}
+
+val Project.fullProjectMavenVersion: String get() = fullProjectVersion.removeBuildSuffix()
 val Project.fullProjectVersionName: String get() = "v$fullProjectVersion"
 val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, modVersion)
 
