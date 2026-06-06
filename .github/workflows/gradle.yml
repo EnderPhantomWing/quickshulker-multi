@@ -3,7 +3,6 @@ name: Dev Builds
 on:
   push:
     branches: [ '**' ] # stop build tag commits
-  pull_request:
 
 jobs:
   build:

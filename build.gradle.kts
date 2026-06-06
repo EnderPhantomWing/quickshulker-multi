@@ -1,8 +1,8 @@
 plugins {
     id("maven-publish")
     id("com.github.hierynomus.license") version "0.16.1" apply false
-    id("net.fabricmc.fabric-loom") version "1.16.2" apply false
-    id("net.fabricmc.fabric-loom-remap") version "1.16.2" apply false
+    id("net.fabricmc.fabric-loom") version "1.16.3" apply false
+    id("net.fabricmc.fabric-loom-remap") version "1.16.3" apply false
     id("com.replaymod.preprocess") version "c5abb4fb12"
 }
 
