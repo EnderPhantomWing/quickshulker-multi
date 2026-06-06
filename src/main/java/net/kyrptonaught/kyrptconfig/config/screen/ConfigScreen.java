@@ -48,8 +48,6 @@ import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 //#endif
-//#if MC >= 1.21.11
-//#endif
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,9 +78,7 @@ public class ConfigScreen extends Screen {
 
     protected void init() {
         int center = this.width / 2;
-        this.addRenderableWidget(new NotSuckyButton(center - 153, height - 25, 150, 20, Component.translatable("key.kyrptconfig.config.exit"), widget -> {
-            this.minecraft.setScreen(previousScreen);
-        }));
+        this.addRenderableWidget(new NotSuckyButton(center - 153, height - 25, 150, 20, Component.translatable("key.kyrptconfig.config.exit"), widget -> this.minecraft.setScreen(previousScreen)));
 
         this.addRenderableWidget(new NotSuckyButton(center + 3, height - 25, 150, 20, Component.translatable("key.kyrptconfig.config.saveExit"), widget -> {
             save();

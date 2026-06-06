@@ -30,9 +30,6 @@ package net.kyrptonaught.kyrptconfig.config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.kyrptonaught.jankson.Jankson;
 import net.minecraft.resources.Identifier;
-//#if MC >= 1.21.11
-import net.minecraft.resources.Identifier;
-//#endif
 
 import java.io.IOException;
 import java.nio.file.Files;

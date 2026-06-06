@@ -42,13 +42,13 @@ import net.minecraft.resources.Identifier;
 //#endif
 //#if MC <= 1.21.10
 //$$ import net.minecraft.resources.ResourceLocation;
+//$$ import net.minecraft.network.chat.Component;
+//$$ import net.minecraft.client.Minecraft;
+//$$ import net.minecraft.client.gui.Font;
 //#endif
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.Component;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -35,9 +35,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
-//#if MC >= 1.21.11
-import net.minecraft.resources.Identifier;
-//#endif
 
 public class OpenInventoryPacket implements CustomPacketPayload {
 

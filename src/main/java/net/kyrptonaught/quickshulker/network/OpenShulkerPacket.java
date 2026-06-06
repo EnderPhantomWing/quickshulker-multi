@@ -39,9 +39,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
-//#if MC >= 1.21.11
-import net.minecraft.resources.Identifier;
-//#endif
 
 public record OpenShulkerPacket(int invSlot) implements CustomPacketPayload {
 

@@ -26,7 +26,7 @@ preprocess {
     mc12104.link(   mc12105,    null)
     mc12105.link(   mc12108,    null)
     mc12108.link(   mc12110,    null)
-    mc12110.link(   mc12111,    null)
+    mc12110.link(   mc12111,    file("mappings/mapping-1.21.10-1.21.11.txt"))
     mc12111.link(   mc260102,   file("mappings/mapping-1.21.11-26.1.2.txt"))
     mc260102.link(  mc260200,   file("mappings/mapping-26.1.2-26.2.txt"))
 

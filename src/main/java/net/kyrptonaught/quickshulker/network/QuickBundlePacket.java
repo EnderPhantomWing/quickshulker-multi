@@ -44,9 +44,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
-//#if MC < 1.21.11
-import net.minecraft.resources.Identifier;
-//#endif
 
 import java.util.List;
 
