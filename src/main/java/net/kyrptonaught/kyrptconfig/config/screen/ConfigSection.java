@@ -34,9 +34,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.CharacterEvent;
-//$$ import net.minecraft.client.input.KeyEvent;
-//$$ import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#else
 //#endif
 
@@ -96,56 +96,56 @@ public class ConfigSection extends Screen {
 
     @Override
     //#if MC >= 1.21.10
-    //$$ public boolean keyPressed(KeyEvent input) {
-    //$$     for (ConfigItem<?> configItem : configs) {
-    //$$         if (configItem.keyPressed(input))
-    //$$             return true;
-    //$$     }
-    //$$     return false;
-    //$$ }
-    //
-    //$$ @Override
-    //$$ public boolean charTyped(CharacterEvent input) {
-    //$$     for (ConfigItem<?> configItem : configs) {
-    //$$         if (configItem.charTyped(input))
-    //$$             return true;
-    //$$     }
-    //$$     return false;
-    //$$ }
-    //
-    //$$ @Override
-    //$$ public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
-    //$$     for (ConfigItem<?> configItem : configs) {
-    //$$         configItem.mouseClicked(click, doubled);
-    //$$     }
-    //$$     mouseScrolled(click.x(), click.y(), 0,0); // update scroll if option changes screen size
-    //$$     return false;
-    //$$ }
-    //#else
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(@NotNull KeyEvent input) {
         for (ConfigItem<?> configItem : configs) {
-            if (configItem.keyPressed(keyCode, scanCode, modifiers))
+            if (configItem.keyPressed(input))
                 return true;
         }
         return false;
     }
-
+    //
     @Override
-    public boolean charTyped(char chr, int modifiers) {
+    public boolean charTyped(@NotNull CharacterEvent input) {
         for (ConfigItem<?> configItem : configs) {
-            if (configItem.charTyped(chr, modifiers))
+            if (configItem.charTyped(input))
                 return true;
         }
         return false;
     }
-
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    //
+    @Override
+    public boolean mouseClicked(@NotNull MouseButtonEvent click, boolean doubled) {
         for (ConfigItem<?> configItem : configs) {
-            configItem.mouseClicked(mouseX, mouseY, button);
+            configItem.mouseClicked(click, doubled);
         }
-        mouseScrolled(mouseX, mouseY, 0, 0); // update scroll if option changes screen size
+        mouseScrolled(click.x(), click.y(), 0,0); // update scroll if option changes screen size
         return false;
     }
+    //#else
+    //$$ public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //$$     for (ConfigItem<?> configItem : configs) {
+    //$$         if (configItem.keyPressed(keyCode, scanCode, modifiers))
+    //$$             return true;
+    //$$     }
+    //$$     return false;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public boolean charTyped(char chr, int modifiers) {
+    //$$     for (ConfigItem<?> configItem : configs) {
+    //$$         if (configItem.charTyped(chr, modifiers))
+    //$$             return true;
+    //$$     }
+    //$$     return false;
+    //$$ }
+    //$$
+    //$$ public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    //$$     for (ConfigItem<?> configItem : configs) {
+    //$$         configItem.mouseClicked(mouseX, mouseY, button);
+    //$$     }
+    //$$     mouseScrolled(mouseX, mouseY, 0, 0); // update scroll if option changes screen size
+    //$$     return false;
+    //$$ }
     //#endif
 
     @Override

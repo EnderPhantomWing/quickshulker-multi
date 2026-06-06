@@ -34,16 +34,16 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.locale.Language;
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.CharacterEvent;
-//$$ import net.minecraft.client.input.KeyEvent;
-//$$ import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#else
 //#endif
 
 //#if MC >= 1.21.2
-//$$ import net.minecraft.util.ARGB;
+import net.minecraft.util.ARGB;
 //#else
-import net.minecraft.util.FastColor;
+//$$ import net.minecraft.util.FastColor;
 //#endif
 
 import java.util.ArrayList;
@@ -167,33 +167,33 @@ public abstract class ConfigItem<T> {
     }
 
     //#if MC >= 1.21.10
-    //$$ public void mouseClicked(MouseButtonEvent click, boolean doubled) {
-    //$$     if (isHidden) return;
-    //$$     if (resetButton != null)
-    //$$         resetButton.mouseClicked(click, doubled);
-    //$$ }
-    //
-    //$$ public boolean charTyped(CharacterEvent input) {
-    //$$     return false;
-    //$$ }
-    //
-    //$$ public boolean keyPressed(KeyEvent input) {
-    //$$     return false;
-    //$$ }
-    //#else
-    public void mouseClicked(double mouseX, double mouseY, int button) {
+    public void mouseClicked(MouseButtonEvent click, boolean doubled) {
         if (isHidden) return;
         if (resetButton != null)
-            resetButton.mouseClicked(mouseX, mouseY, button);
+            resetButton.mouseClicked(click, doubled);
     }
-
-    public boolean charTyped(char chr, int modifiers) {
+    //
+    public boolean charTyped(CharacterEvent input) {
         return false;
     }
-
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //
+    public boolean keyPressed(KeyEvent input) {
         return false;
     }
+    //#else
+    //$$ public void mouseClicked(double mouseX, double mouseY, int button) {
+    //$$     if (isHidden) return;
+    //$$     if (resetButton != null)
+    //$$         resetButton.mouseClicked(mouseX, mouseY, button);
+    //$$ }
+    //$$
+    //$$ public boolean charTyped(char chr, int modifiers) {
+    //$$     return false;
+    //$$ }
+    //$$
+    //$$ public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //$$     return false;
+    //$$ }
     //#endif
 
     public void render(GuiGraphics context, int x, int y, int mouseX, int mouseY, float delta) {
@@ -203,9 +203,9 @@ public abstract class ConfigItem<T> {
         int height = y + getHeaderSize();
         if (mouseY > y && mouseY < height)
             //#if MC >= 1.21.2
-            //$$ context.fill(0, y - 1, width, height + 1, ARGB.color(50, 255, 255, 255));
+            context.fill(0, y - 1, width, height + 1, ARGB.color(50, 255, 255, 255));
             //#else
-            context.fill(0, y - 1, width, height + 1, FastColor.ARGB32.color(50, 255, 255, 255));
+            //$$ context.fill(0, y - 1, width, height + 1, FastColor.ARGB32.color(50, 255, 255, 255));
             //#endif
 
         context.drawString(Minecraft.getInstance().font, this.fieldTitle, x, y + 6, -1, true);
@@ -228,25 +228,25 @@ public abstract class ConfigItem<T> {
 
     public void renderToolTip(GuiGraphics context, int x, int y) {
         //#if MC >= 1.21.6
-        //$$ if (toolTipText != null && requiresRestart) {
-        //$$     List<Component> newList = new ArrayList<>(toolTipText);
-        //$$     newList.add(Component.translatable("key.kyrptconfig.config.restartRequired"));
-        //$$     context.setComponentTooltipForNextFrame(Minecraft.getInstance().font, newList, x, y);
-        //$$ } else if (toolTipText != null) {
-        //$$     context.setComponentTooltipForNextFrame(Minecraft.getInstance().font, toolTipText, x, y);
-        //$$ } else if (requiresRestart) {
-        //$$     context.setTooltipForNextFrame(Minecraft.getInstance().font, Component.translatable("key.kyrptconfig.config.restartRequired"), x, y);
-        //$$ }
-        //#else
         if (toolTipText != null && requiresRestart) {
             List<Component> newList = new ArrayList<>(toolTipText);
             newList.add(Component.translatable("key.kyrptconfig.config.restartRequired"));
-            context.renderComponentTooltip(Minecraft.getInstance().font, newList, x, y);
+            context.setComponentTooltipForNextFrame(Minecraft.getInstance().font, newList, x, y);
         } else if (toolTipText != null) {
-            context.renderComponentTooltip(Minecraft.getInstance().font, toolTipText, x, y);
+            context.setComponentTooltipForNextFrame(Minecraft.getInstance().font, toolTipText, x, y);
         } else if (requiresRestart) {
-            context.renderTooltip(Minecraft.getInstance().font, Component.translatable("key.kyrptconfig.config.restartRequired"), x, y);
+            context.setTooltipForNextFrame(Minecraft.getInstance().font, Component.translatable("key.kyrptconfig.config.restartRequired"), x, y);
         }
+        //#else
+        //$$ if (toolTipText != null && requiresRestart) {
+        //$$     List<Component> newList = new ArrayList<>(toolTipText);
+        //$$     newList.add(Component.translatable("key.kyrptconfig.config.restartRequired"));
+        //$$     context.renderComponentTooltip(Minecraft.getInstance().font, newList, x, y);
+        //$$ } else if (toolTipText != null) {
+        //$$     context.renderComponentTooltip(Minecraft.getInstance().font, toolTipText, x, y);
+        //$$ } else if (requiresRestart) {
+        //$$     context.renderTooltip(Minecraft.getInstance().font, Component.translatable("key.kyrptconfig.config.restartRequired"), x, y);
+        //$$ }
         //#endif
     }
 }

@@ -38,9 +38,9 @@ public class DisplayOnlyKeyBind extends KeyMapping {
     private CustomKeyBinding customKeyBinding;
 
     //#if MC >= 1.21.10
-    //$$ public DisplayOnlyKeyBind(String translationKey, InputConstants.Type type, int code, KeyMapping.Category category) {
+    public DisplayOnlyKeyBind(String translationKey, InputConstants.Type type, int code, KeyMapping.Category category) {
     //#else
-    public DisplayOnlyKeyBind(String translationKey, InputConstants.Type type, int code, String category) {
+    //$$ public DisplayOnlyKeyBind(String translationKey, InputConstants.Type type, int code, String category) {
     //#endif
         super(translationKey, type, code, category);
         keySet = (boundKey) -> {
@@ -48,9 +48,9 @@ public class DisplayOnlyKeyBind extends KeyMapping {
     }
 
     //#if MC >= 1.21.10
-    //$$ public DisplayOnlyKeyBind(String translationKey, KeyMapping.Category category, CustomKeyBinding customKeyBinding, Consumer<InputConstants.Key> keySet) {
+    public DisplayOnlyKeyBind(String translationKey, KeyMapping.Category category, CustomKeyBinding customKeyBinding, Consumer<InputConstants.Key> keySet) {
     //#else
-    public DisplayOnlyKeyBind(String translationKey, String category, CustomKeyBinding customKeyBinding, Consumer<InputConstants.Key> keySet) {
+    //$$ public DisplayOnlyKeyBind(String translationKey, String category, CustomKeyBinding customKeyBinding, Consumer<InputConstants.Key> keySet) {
     //#endif
         super(translationKey, customKeyBinding.getDefaultKey().getType(), customKeyBinding.getDefaultKey().getValue(), category);
         this.customKeyBinding = customKeyBinding;
@@ -71,9 +71,9 @@ public class DisplayOnlyKeyBind extends KeyMapping {
 
     @Override
     //#if MC >= 1.21.10
-    //$$ public KeyMapping.Category getCategory() {
+    public KeyMapping.@NotNull Category getCategory() {
     //#else
-    public @NotNull String getCategory() {
+    //$$ public @NotNull String getCategory() {
     //#endif
         updateSetKey();
         return super.getCategory();

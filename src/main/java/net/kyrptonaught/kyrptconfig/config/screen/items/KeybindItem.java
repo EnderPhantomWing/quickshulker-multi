@@ -43,8 +43,8 @@ import net.minecraft.ChatFormatting;
 //$$ import net.minecraft.locale.Language;
 //#endif
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.KeyEvent;
-//$$ import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#endif
 
 import org.lwjgl.glfw.GLFW;
@@ -107,9 +107,9 @@ public class KeybindItem extends ConfigItem<String> {
             }
             if (duplicate) {
                 //#if MC >= 1.21.10
-                //$$ keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.YELLOW));
+                keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.YELLOW));
                 //#else
-                keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.RED));
+                //$$ keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.RED));
                 //#endif
                 keyButton.setTooltip(Tooltip.create(Component.translatable("key.quickshulker.config.savedValue", Component.literal(this.value)).append(Component.translatable("key.quickshulker.config.keybindinsConflict", mutableText))));
             } else {
@@ -127,49 +127,49 @@ public class KeybindItem extends ConfigItem<String> {
 
     @Override
     //#if MC >= 1.21.10
-    //$$ public boolean keyPressed(KeyEvent input) {
-    //$$     if (isListening) {
-    //$$         if (input.input() == GLFW.GLFW_KEY_ESCAPE) {
-    //$$             setValue("");
-    //$$             return true;
-    //$$         }
-    //$$         setValue(InputConstants.getKey(input).getName());
-    //$$         return true;
-    //$$     }
-    //$$     return false;
-    //$$ }
-    //
-    //$$ @Override
-    //$$ public void mouseClicked(MouseButtonEvent click, boolean doubled) {
-    //$$     super.mouseClicked(click, doubled);
-    //$$     boolean handled;
-    //$$     handled = (keyButton.mouseClicked(click, doubled) || resetButton.mouseClicked(click, doubled));
-    //$$     if (isListening && !handled) {
-    //$$         setValue(InputConstants.Type.MOUSE.getOrCreate(click.button()).getName());
-    //$$     }
-    //$$ }
-    //#else
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent input) {
         if (isListening) {
-            if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            if (input.input() == GLFW.GLFW_KEY_ESCAPE) {
                 setValue("");
                 return true;
             }
-            setValue(InputConstants.getKey(keyCode, scanCode).getName());
+            setValue(InputConstants.getKey(input).getName());
             return true;
         }
         return false;
     }
-
+    //
     @Override
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-        super.mouseClicked(mouseX, mouseY, button);
+    public void mouseClicked(MouseButtonEvent click, boolean doubled) {
+        super.mouseClicked(click, doubled);
         boolean handled;
-        handled = (keyButton.mouseClicked(mouseX, mouseY, button) || resetButton.mouseClicked(mouseX, mouseY, button));
+        handled = (keyButton.mouseClicked(click, doubled) || resetButton.mouseClicked(click, doubled));
         if (isListening && !handled) {
-            setValue(InputConstants.Type.MOUSE.getOrCreate(button).getName());
+            setValue(InputConstants.Type.MOUSE.getOrCreate(click.button()).getName());
         }
     }
+    //#else
+    //$$ public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //$$     if (isListening) {
+    //$$         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+    //$$             setValue("");
+    //$$             return true;
+    //$$         }
+    //$$         setValue(InputConstants.getKey(keyCode, scanCode).getName());
+    //$$         return true;
+    //$$     }
+    //$$     return false;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void mouseClicked(double mouseX, double mouseY, int button) {
+    //$$     super.mouseClicked(mouseX, mouseY, button);
+    //$$     boolean handled;
+    //$$     handled = (keyButton.mouseClicked(mouseX, mouseY, button) || resetButton.mouseClicked(mouseX, mouseY, button));
+    //$$     if (isListening && !handled) {
+    //$$         setValue(InputConstants.Type.MOUSE.getOrCreate(button).getName());
+    //$$     }
+    //$$ }
     //#endif
 
     @Override

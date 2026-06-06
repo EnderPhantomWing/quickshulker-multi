@@ -97,10 +97,6 @@ license {
 	mapping(mapOf("java" to "SLASHSTAR_STYLE_NEWLINE"))
 }
 
-java {
-	withSourcesJar()
-}
-
 publishing {
 	publications {
 		register("mavenJava", MavenPublication::class) {

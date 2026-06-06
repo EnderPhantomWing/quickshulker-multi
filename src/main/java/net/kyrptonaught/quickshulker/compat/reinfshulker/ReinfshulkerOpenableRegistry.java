@@ -48,6 +48,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.network.chat.Component;
 //#endif
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class ReinfshulkerOpenableRegistry {
@@ -58,7 +59,7 @@ public class ReinfshulkerOpenableRegistry {
         ReinforcedShulkerBoxBlock block = (ReinforcedShulkerBoxBlock) ((BlockItem) stack.getItem()).getBlock();
         ReinforcingMaterial material = block.getMaterial();
         ItemStackInventory inventory = new ItemStackInventory(stack, material.getSize());
-        String namespace = BlockEntityType.getKey(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material)).getNamespace();
+        String namespace = Objects.requireNonNull(BlockEntityType.getKey(ModBlockEntityType.REINFORCED_SHULKER_BOX_MAP.get(material))).getNamespace();
 
         MenuConstructor screenHandlerFactory = (int syncId, Inventory playerInventory, Player playerEntity) ->
                 ReinforcedStorageScreenHandler.createShulkerBoxScreen(material, syncId, playerInventory, inventory);

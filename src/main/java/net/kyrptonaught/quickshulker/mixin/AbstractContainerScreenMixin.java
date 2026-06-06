@@ -31,7 +31,7 @@ import net.kyrptonaught.quickshulker.util.MouseDraggedHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#endif
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,21 +45,21 @@ public abstract class AbstractContainerScreenMixin {
 
     @Inject(
             //#if MC >= 1.21.10
-            //$$ method = "mouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;Z)Z",
+            method = "mouseClicked(Lnet/minecraft/client/input/MouseButtonEvent;Z)Z",
             //#else
-            method = "mouseClicked(DDI)Z",
+            //$$ method = "mouseClicked(DDI)Z",
             //#endif
             at = @At("HEAD"),
             cancellable = true
     )
     //#if MC >= 1.21.10
-    //$$ private void QS$mouseClicked(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir){
-    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-    //$$     boolean result = MouseDraggedHandler.beforeMouseClick(screen, click);
-    //#else
-    private void QS$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    private void QS$mouseClicked(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir){
         AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-        boolean result = MouseDraggedHandler.beforeMouseClick(screen, mouseX, mouseY, button);
+        boolean result = MouseDraggedHandler.beforeMouseClick(screen, click);
+    //#else
+    //$$ private void QS$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
+    //$$     boolean result = MouseDraggedHandler.beforeMouseClick(screen, mouseX, mouseY, button);
         //#endif
         if (result) {
             cir.setReturnValue(true);
@@ -68,21 +68,21 @@ public abstract class AbstractContainerScreenMixin {
 
     @Inject(
             //#if MC >= 1.21.10
-            //$$ method = "mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z",
+            method = "mouseDragged(Lnet/minecraft/client/input/MouseButtonEvent;DD)Z",
             //#else
-            method = "mouseDragged(DDIDD)Z",
+            //$$ method = "mouseDragged(DDIDD)Z",
             //#endif
             at = @At("HEAD"),
             cancellable = true
     )
     //#if MC >= 1.21.10
-    //$$ private void QS$mouseDragged(MouseButtonEvent click, double offsetX, double offsetY, CallbackInfoReturnable<Boolean> cir){
-    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-    //$$     boolean result = MouseDraggedHandler.beforeMouseDragged(screen, click);
-    //#else
-    private void QS$mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY, CallbackInfoReturnable<Boolean> cir) {
+    private void QS$mouseDragged(MouseButtonEvent click, double offsetX, double offsetY, CallbackInfoReturnable<Boolean> cir){
         AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-        boolean result = MouseDraggedHandler.beforeMouseDragged(screen, mouseX, mouseY, button);
+        boolean result = MouseDraggedHandler.beforeMouseDragged(screen, click);
+    //#else
+    //$$ private void QS$mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY, CallbackInfoReturnable<Boolean> cir) {
+    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
+    //$$     boolean result = MouseDraggedHandler.beforeMouseDragged(screen, mouseX, mouseY, button);
         //#endif
         if (result) {
             cir.setReturnValue(true);
@@ -91,21 +91,21 @@ public abstract class AbstractContainerScreenMixin {
 
     @Inject(
             //#if MC >= 1.21.10
-            //$$ method = "mouseReleased(Lnet/minecraft/client/input/MouseButtonEvent;)Z",
+            method = "mouseReleased(Lnet/minecraft/client/input/MouseButtonEvent;)Z",
             //#else
-            method = "mouseReleased(DDI)Z",
+            //$$ method = "mouseReleased(DDI)Z",
             //#endif
             at = @At("HEAD"),
             cancellable = true
     )
     //#if MC >= 1.21.10
-    //$$ private void QS$mouseReleased(MouseButtonEvent click, CallbackInfoReturnable<Boolean> cir){
-    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-    //$$     boolean result = MouseDraggedHandler.beforeMouseReleased(screen, click);
-    //#else
-    private void QS$mouseReleased(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    private void QS$mouseReleased(MouseButtonEvent click, CallbackInfoReturnable<Boolean> cir){
         AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
-        boolean result = MouseDraggedHandler.beforeMouseReleased(screen, mouseX, mouseY, button);
+        boolean result = MouseDraggedHandler.beforeMouseReleased(screen, click);
+    //#else
+    //$$ private void QS$mouseReleased(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    //$$     AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
+    //$$     boolean result = MouseDraggedHandler.beforeMouseReleased(screen, mouseX, mouseY, button);
         //#endif
         if (result) {
             cir.setReturnValue(true);
@@ -116,9 +116,9 @@ public abstract class AbstractContainerScreenMixin {
             //#if MC >= 26.1
             //$$ method = "extractContents(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IIF)V",
             //#elseif MC >= 1.21.6
-            //$$ method = "renderContents(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
+            method = "renderContents(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
             //#else
-            method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
+            //$$ method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
             //#endif
             at = @At(
                     value = "INVOKE",
