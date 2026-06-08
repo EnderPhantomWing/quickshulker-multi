@@ -27,7 +27,7 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
-import net.kyrptonaught.jankson.Jankson;
+import blue.endless.jankson.Jankson;
 
 import java.lang.reflect.Field;
 

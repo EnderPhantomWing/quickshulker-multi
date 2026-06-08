@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,35 +22,27 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package blue.endless.jankson.api;
 
-import blue.endless.jankson.Jankson;
+import java.io.Serial;
 
-import java.io.InputStream;
+public class DeserializationException extends Exception {
+    @Serial
+    private static final long serialVersionUID = 8425560848572561283L;
 
-public class JanksonJsonLoader implements JsonLoader {
-    private Jankson jankson;
-
-    public void provideJankson(Jankson jankson) {
-        this.jankson = jankson;
+    public DeserializationException() {
+        super();
     }
 
-    public Jankson getJankson() {
-        return jankson;
+    public DeserializationException(String message) {
+        super(message);
     }
 
-    @Override
-    public AbstractConfigFile loadFromString(String input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(input, output);
+    public DeserializationException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    @Override
-    public AbstractConfigFile loadFromInputStream(InputStream input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(jankson.load(input), output);
-    }
-
-    @Override
-    public String toString(AbstractConfigFile config) {
-        return jankson.toJson(config).toJson(true, true);
+    public DeserializationException(Throwable cause) {
+        super(cause);
     }
 }

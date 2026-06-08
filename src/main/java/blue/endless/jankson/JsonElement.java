@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,35 +22,42 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package blue.endless.jankson;
 
-import blue.endless.jankson.Jankson;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import java.io.InputStream;
+/**
+ * Tagging class for JSON objects, arrays, and primitives
+ */
+public abstract class JsonElement implements Cloneable {
+    public abstract JsonElement clone();
 
-public class JanksonJsonLoader implements JsonLoader {
-    private Jankson jankson;
-
-    public void provideJankson(Jankson jankson) {
-        this.jankson = jankson;
+    public String toJson() {
+        return toJson(false, false, 0);
     }
 
-    public Jankson getJankson() {
-        return jankson;
+    public String toJson(boolean comments, boolean newlines) {
+        return toJson(comments, newlines, 0);
     }
 
-    @Override
-    public AbstractConfigFile loadFromString(String input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(input, output);
+    public abstract String toJson(boolean comments, boolean newlines, int depth);
+
+    public String toJson(JsonGrammar grammar, int depth) {
+        StringWriter w = new StringWriter();
+        try {
+            toJson(w, grammar, depth);
+            w.flush();
+            return w.toString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    @Override
-    public AbstractConfigFile loadFromInputStream(InputStream input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(jankson.load(input), output);
+    public String toJson(JsonGrammar grammar) {
+        return toJson(grammar, 0);
     }
 
-    @Override
-    public String toString(AbstractConfigFile config) {
-        return jankson.toJson(config).toJson(true, true);
-    }
+    public abstract void toJson(Writer writer, JsonGrammar grammar, int depth) throws IOException;
 }

@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,35 +22,44 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package blue.endless.jankson;
 
-import blue.endless.jankson.Jankson;
+import java.io.IOException;
+import java.io.Writer;
 
-import java.io.InputStream;
+public class JsonNull extends JsonElement {
+    public static final JsonNull INSTANCE = new JsonNull();
 
-public class JanksonJsonLoader implements JsonLoader {
-    private Jankson jankson;
-
-    public void provideJankson(Jankson jankson) {
-        this.jankson = jankson;
+    private JsonNull() {
     }
 
-    public Jankson getJankson() {
-        return jankson;
-    }
-
-    @Override
-    public AbstractConfigFile loadFromString(String input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(input, output);
+    public String toString() {
+        return "null";
     }
 
     @Override
-    public AbstractConfigFile loadFromInputStream(InputStream input, Class<? extends AbstractConfigFile> output) throws Exception {
-        return jankson.fromJson(jankson.load(input), output);
+    public boolean equals(Object other) {
+        return other instanceof JsonNull;
     }
 
     @Override
-    public String toString(AbstractConfigFile config) {
-        return jankson.toJson(config).toJson(true, true);
+    public int hashCode() {
+        return 0;
+    }
+
+    @Override
+    public String toJson(boolean comments, boolean newlines, int depth) {
+        return "null";
+    }
+
+    @Override
+    public void toJson(Writer writer, JsonGrammar grammar, int depth) throws IOException {
+        writer.write("null");
+    }
+
+    //IMPLEMENTATION for Cloneable
+    @Override
+    public JsonNull clone() {
+        return this; //Technically violates the contract for Cloneable, but this is a singleton
     }
 }
