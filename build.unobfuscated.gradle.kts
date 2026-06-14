@@ -69,6 +69,7 @@ loom {
     }
 }
 
+// https://github.com/hierynomus/license-gradle-plugin
 license {
     // use "gradle licenseFormat" to apply license headers
     header = rootProject.file("HEADER.txt")
@@ -93,13 +94,19 @@ license {
     }
     mapping(mapOf("java" to "SLASHSTAR_STYLE_NEWLINE"))
 }
+tasks.named("classes") {
+    dependsOn(tasks.named("licenseFormatMain"))
+}
+tasks.named("testClasses") {
+    dependsOn(tasks.named("licenseFormatTest"))
+}
 
 publishing {
     publications {
         register("mavenJava", MavenPublication::class) {
             from(components["java"])
             artifactId = "${prop("minecraft_version")}"
-            version = "$modArchivesBaseName-$modVersion"
+            version = modVersion
         }
     }
 
