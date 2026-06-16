@@ -12,13 +12,7 @@ on:
       - published
   workflow_dispatch:
     inputs:
-      isPreRelease:
-        description: |-
-          Set to true to mark the release as a prerelease; false otherwise.
-          Ignored if the GitHub Release already exists.
-        type: boolean
-        default: false
-      isPackages:
+      isPublish:
         description: |-
           Publish mods to GitHub Packages.
           Default to true, set it to false if you just want to create a GitHub release without publishing to any maven repositories.
@@ -116,11 +110,15 @@ jobs:
       download_dependencies: true
 
   publish:
-    if: github.event.inputs.isPackages != false
+    if: github.event.inputs.isPublish == true
     uses: ./.github/workflows/publish.yml
     secrets: inherit
     needs:
       - build
+    with:
+      release: true
+      publish: true
+      download_dependencies: true
 
   release:
     continue-on-error: true
@@ -240,7 +238,6 @@ jobs:
 
           github-tag: ${{ steps.release_info.outputs.tag_name }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-prerelease: ${{ github.event.inputs.isPreRelease }}
 
           files: ${{ steps.file_info.outputs.path }}
 

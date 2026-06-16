@@ -6,6 +6,10 @@ on:
         type: boolean
         required: false
         default: false
+      publish:
+        type: boolean
+        required: false
+        default: false
       target_subproject:
         description: See release.yml, leave it empty to build all
         type: string
@@ -59,6 +63,7 @@ jobs:
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
+          isPublish: ${{ inputs.publish }}
 
       - name: Publish artifacts
         run: |
@@ -73,3 +78,4 @@ jobs:
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
+          isPublish: ${{ inputs.publish }}
