@@ -6,6 +6,14 @@ on:
         type: boolean
         required: false
         default: false
+      pr_build:
+        type: boolean
+        required: false
+        default: false
+      dev_build:
+        type: boolean
+        required: false
+        default: false
       target_subproject:
         description: See release.yml, leave it empty to build all
         type: string
@@ -59,6 +67,8 @@ jobs:
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
+          BUILD_PR: ${{ inputs.pr_build }}
+          BUILD_DEV: ${{ inputs.dev_build }}
 
       - name: Build
         run: |
@@ -73,6 +83,8 @@ jobs:
         env:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
+          BUILD_PR: ${{ inputs.pr_build }}
+          BUILD_DEV: ${{ inputs.dev_build }}
 
       - name: Upload artifacts (summary part need)
         uses: actions/upload-artifact@v7
