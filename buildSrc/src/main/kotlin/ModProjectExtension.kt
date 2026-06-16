@@ -73,17 +73,17 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     val isDEV           = System.getenv("CI") == "true" || System.getenv("GITHUB_ACTIONS") == "true" || System.getenv("BUILD_DEV")?.toBoolean() == true
 
     return when {
-        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount+release"
-        isPR        -> "$modVersion-mc$mcVersion-$commitHash-$commitCount+pr.$buildNumber"
+        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-release"
+        isPR        -> "$modVersion-mc$mcVersion-$commitHash-pr.$buildNumber"
         isDEV       -> {
             if (buildNumber != null) {
-                "$modVersion-mc$mcVersion-$commitHash-$commitCount+dev.$buildNumber"
+                "$modVersion-mc$mcVersion-$commitHash-build.$buildNumber"
             } else {
-                "$modVersion-mc$mcVersion-$timestampMillis-$commitCount+development"
+                "$modVersion-mc$mcVersion-$timestampMillis-development"
             }
         }
         else -> {
-            "$modVersion-mc$mcVersion-$timestampMillis-$commitCount+development"
+            "$modVersion-mc$mcVersion-$timestampMillis-development"
         }
     }
 }
