@@ -10,6 +10,7 @@ fun Project.propStrOrNull(key: String): String? = propOrNull(key)?.toString()
 fun Project.propStr(key: String): String = propStrOrNull(key)
     ?: throw GradleException("buildSrc: Property $key is not configured, value is empty, or cannot be converted to string")
 
+@Suppress("unused")
 fun Project.downloadDependencyMod(downloadUrl: String, fileName: String? = null): File? {
     return rootProject.downloadFile(
         downloadUrl = downloadUrl,
@@ -30,7 +31,6 @@ val Project.modSources get() = propStrOrNull("mod_sources")
 
 val Project.mcDependency get() = propStrOrNull("minecraft_dependency")
 val Project.mcVersion get() = propStrOrNull("minecraft_version")
-//val Project.mcVersionInt get() = propStrOrNull("mcVersion")?.toIntOrNull() ?: -1
 val Project.mcVersionInt get() = parseMcVersionToNumber(mcVersion ?: "")
 val Project.fabricLoaderVersion get() = propStrOrNull("loader_version")
 val Project.fabricApiVersion get() = propStrOrNull("fabric_version")
@@ -45,15 +45,23 @@ val Project.javaVersion
     }
 val Project.mixinJavaVersion get() = "JAVA_${javaVersion}"
 
-fun String.removeBuildSuffix(): String {
-    // 匹配三种模式并移除（从末尾匹配）
-    val regex = Regex("""-(?:[A-Za-z0-9]+-(?:release|\d+)|development)$""")
-    return this.replace(regex, "")
-}
-
-val Project.fullProjectMavenVersion: String get() = fullProjectVersion.removeBuildSuffix()
 val Project.fullProjectVersionName: String get() = "v$fullProjectVersion"
 val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, modVersion)
+
+private fun getCommitCountNumber(workDir: File = File(".")): Int? {
+    return try {
+        val process = ProcessBuilder("git", "rev-list", "--count", "HEAD")
+            .directory(workDir)
+            .redirectErrorStream(true)
+            .start()
+        val output = process.inputStream.bufferedReader().readText().trim()
+        val exitCode = process.waitFor()
+        if (exitCode == 0) output.toInt() else null
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
 
 private fun getFullProjectVersion(mcVersion: String?, modVersion: String): String {
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
@@ -62,19 +70,20 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     val isPR            = System.getenv("BUILD_PR")?.toBoolean() == true
     val isDEV           = System.getenv("CI") == "true" || System.getenv("GITHUB_ACTIONS") == "true" || System.getenv("BUILD_DEV")?.toBoolean() == true
     val timestampMillis = System.currentTimeMillis()
+    val commitCount     = getCommitCountNumber()
 
     return when {
-        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-release"
-        isPR        -> "$modVersion-mc$mcVersion-$commitHash-pr.$buildNumber"
+        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-release"
+        isPR        -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-pr.$buildNumber"
         isDEV       -> {
             if (buildNumber != null) {
-                "$modVersion-mc$mcVersion-$commitHash-$buildNumber"
+                "$modVersion-mc$mcVersion-$commitHash-$commitCount-dev.$buildNumber"
             } else {
-                "$modVersion-mc$mcVersion-$timestampMillis-development"
+                "$modVersion-mc$mcVersion-$timestampMillis-$commitCount-development"
             }
         }
         else -> {
-            "$modVersion-mc$mcVersion-$timestampMillis-development"
+            "$modVersion-mc$mcVersion-$timestampMillis-$commitCount-development"
         }
     }
 }
