@@ -57,17 +57,17 @@ loom {
 	accessWidenerPath.set(file("quickshulker.accesswidener"))
 
 	val commonVmArgs = listOf("-Dmixin.debug.export=true", "-Dmixin.debug.verbose=true", "-Dmixin.env.remapRefMap=true")
-	val commonProgramArgs = listOf("--width", "1366", "--height", "768", "--username", "ShulkerDev")
+	val commonProgramArgs = listOf("--width", "1280", "--height", "720", "--username", "ShulkerDev")
 
 	runs {
 		named("client") {
-			ideConfigGenerated(true)
-			vmArgs(commonVmArgs)
-			programArgs(commonProgramArgs)
-			runDir = "../../run/client"
+            generateRunConfig
+            jvmArguments.set(commonVmArgs)
+			programArguments.set(commonProgramArgs)
+			runDirectory.dir("../../run/client")
 		}
 		named("server") {
-			runDir = "../../run/server"
+			runDirectory.dir("../../run/server")
 		}
 	}
 }
