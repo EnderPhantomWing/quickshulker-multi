@@ -64,26 +64,26 @@ private fun getCommitCountNumber(workDir: File = File(".")): Int? {
 }
 
 private fun getFullProjectVersion(mcVersion: String?, modVersion: String): String {
+    val timestampMillis = System.currentTimeMillis()
+    val commitCount     = getCommitCountNumber()
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
     val commitHash      = System.getenv("COMMIT_HASH")
     val isRelease       = System.getenv("IS_THIS_RELEASE")?.toBoolean() == true || System.getenv("BUILD_RELEASE")?.toBoolean() == true
     val isPR            = System.getenv("BUILD_PR")?.toBoolean() == true
     val isDEV           = System.getenv("CI") == "true" || System.getenv("GITHUB_ACTIONS") == "true" || System.getenv("BUILD_DEV")?.toBoolean() == true
-    val timestampMillis = System.currentTimeMillis()
-    val commitCount     = getCommitCountNumber()
 
     return when {
-        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-release"
-        isPR        -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-pr.$buildNumber"
+        isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount+release"
+        isPR        -> "$modVersion-mc$mcVersion-$commitHash-$commitCount+pr.$buildNumber"
         isDEV       -> {
             if (buildNumber != null) {
-                "$modVersion-mc$mcVersion-$commitHash-$commitCount-dev.$buildNumber"
+                "$modVersion-mc$mcVersion-$commitHash-$commitCount+dev.$buildNumber"
             } else {
-                "$modVersion-mc$mcVersion-$timestampMillis-$commitCount-development"
+                "$modVersion-mc$mcVersion-$timestampMillis-$commitCount+development"
             }
         }
         else -> {
-            "$modVersion-mc$mcVersion-$timestampMillis-$commitCount-development"
+            "$modVersion-mc$mcVersion-$timestampMillis-$commitCount+development"
         }
     }
 }
