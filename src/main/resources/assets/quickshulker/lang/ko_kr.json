@@ -25,6 +25,8 @@
   "key.quickshulker.config.quickEChest": "엔더 상자 열기 활성화",
   "key.quickshulker.config.quickAnvil": "앤빌 개방 활성화",
   "key.quickshulker.config.quickGrindstone": "그라인드스톤 열기 활성화",
+  "key.quickshulker.config.quickSmithingTable": "대장장이 테이블 개방 활성화",
+  "key.quickshulker.config.quickLoom": "여는 베틀 활성화",
   "key.kyrptconfig.config.restartRequired": "재시작 후 적용",
   "key.quickshulker.config.savedValue": "저장된 값: %s",
   "key.quickshulker.config.keybindinsConflict": "\n이 키는 다음에도 사용됨: %s",

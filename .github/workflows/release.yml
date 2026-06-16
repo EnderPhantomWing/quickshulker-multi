@@ -12,6 +12,18 @@ on:
       - published
   workflow_dispatch:
     inputs:
+      isPreRelease:
+        description: |-
+          Set to true to mark the release as a prerelease; false otherwise.
+          Ignored if the GitHub Release already exists.
+        type: boolean
+        default: false
+      isPackages:
+        description: |-
+          Publish mods to GitHub Packages.
+          Default to true, set it to false if you just want to create a GitHub release without publishing to any maven repositories.
+        type: boolean
+        default: true
       target_subproject:
         description: |-
           The subproject name(s) of the specified Minecraft version to be released, seperated with ",".
@@ -20,10 +32,11 @@ on:
         required: false
         default: ''
       target_release_tag:
-        description: The tag of the release you want to append the artifact to
+        description: |-
+          The tag of the release you want to append the artifact to.
+          It must be an existing tag, otherwise publishing will fail.
         type: string
         required: true
-
 
 jobs:
   show_action_parameters:
@@ -46,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - name: Checkout all
+      - name: Checkout repository
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
@@ -100,8 +113,18 @@ jobs:
     with:
       target_subproject: ${{ github.event.inputs.target_subproject }}
       release: true
+      download_dependencies: true
+
+  publish:
+    if: github.event.inputs.isPackages != false
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
+    needs:
+      - build
 
   release:
+    continue-on-error: true
+
     needs:
       - matrix_prep
       - build
@@ -187,7 +210,7 @@ jobs:
           cat $GITHUB_OUTPUT
 
       - name: Prepare changelog
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         id: changelog
         with:
           script: return process.env.CHANGELOG
@@ -207,17 +230,17 @@ jobs:
       - name: Publish Minecraft Mods
         uses: Kira-NT/mc-publish@v3.3
         with:
-          # disable upload to modrinth and curseforge
           # https://modrinth.com/settings/pats
-          # modrinth-id: jd0ptGv4
-          # modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
+          modrinth-id: pWSdI9vn
+          modrinth-token: ${{ secrets.MODRINTH_API_TOKEN }}
 
           # https://legacy.curseforge.com/account/api-tokens
-          # curseforge-id: 314159
-          # curseforge-token: ${{ secrets.CF_API_TOKEN }}
+          curseforge-id: 1566301
+          curseforge-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
 
           github-tag: ${{ steps.release_info.outputs.tag_name }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-prerelease: ${{ github.event.inputs.isPreRelease }}
 
           files: ${{ steps.file_info.outputs.path }}
 

@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       target_subproject:
-        description: see release.yml, for generating matrix entries
+        description: See release.yml, for generating matrix entries
         type: string
         required: false
         default: ''

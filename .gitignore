@@ -31,3 +31,17 @@ bin/
 # fabric
 
 run/
+
+# collected mods
+
+mod-jars/
+publish/
+
+# kotlin
+
+.kotlin/
+*.salive
+
+# jars
+*.jar
+!gradle-wrapper.jar

@@ -1,0 +1,10 @@
+name: PR Builds
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      pr_build: true

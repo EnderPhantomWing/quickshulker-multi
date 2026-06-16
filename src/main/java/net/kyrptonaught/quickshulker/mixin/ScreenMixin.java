@@ -1,11 +1,28 @@
 /*
- * This file is part of the Quick Shulker Multi project, licensed under the MIT License.
+ * MIT License
  *
- * Copyright (C) 2019 kyrptonaught, Hao_cen, Grayer0113, MoRanpcy, EnderPhantomWing and other contributors
+ * Copyright (c) 2019 kyrptonaught
+ * Copyright (c) 2024 Haocen2004
+ * Copyright (c) 2025 MoRanpcy
+ * Copyright (c) 2025 EnderPhantomWing
  *
- * {name} is free software: you can redistribute or modify it under the terms of the MIT License.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Browse the MIT License here. <https://mit-license.org/>
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 package net.kyrptonaught.quickshulker.mixin;
@@ -24,8 +41,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.MouseButtonEvent;
-//$$ import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
 //#endif
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -54,9 +71,9 @@ public abstract class ScreenMixin {
     private void fixMouse(CallbackInfo ci) {
         if (QuickShulkerMod.lastMouseX != 0 && QuickShulkerMod.lastMouseY != 0) {
             //#if MC >= 1.21.10
-            //$$ GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().handle(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
+            GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().handle(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
             //#else
-            GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().getWindow(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
+            //$$ GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().getWindow(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
             //#endif
             QuickShulkerMod.lastMouseY = 0;
             QuickShulkerMod.lastMouseX = 0;
@@ -65,13 +82,13 @@ public abstract class ScreenMixin {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     //#if MC >= 1.21.10
-    //$$ private void QS$keyPressed(KeyEvent input, CallbackInfoReturnable<Boolean> cir) {
-    //$$     if (QuickShulkerMod.getConfig().keybingInInv) {
-    //$$         if (QuickShulkerModClient.getKeybinding().matches(input.input(), InputConstants.Type.KEYSYM)) {
-    //#else
-    private void QS$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+    private void QS$keyPressed(KeyEvent input, CallbackInfoReturnable<Boolean> cir) {
         if (QuickShulkerMod.getConfig().keybingInInv) {
-            if (QuickShulkerModClient.getKeybinding().matches(keyCode, InputConstants.Type.KEYSYM)) {
+            if (QuickShulkerModClient.getKeybinding().matches(input.input(), InputConstants.Type.KEYSYM)) {
+    //#else
+    //$$ private void QS$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+    //$$     if (QuickShulkerMod.getConfig().keybingInInv) {
+    //$$         if (QuickShulkerModClient.getKeybinding().matches(keyCode, InputConstants.Type.KEYSYM)) {
                 //#endif
                 if (handleTrigger())
                     cir.setReturnValue(true);
@@ -81,13 +98,13 @@ public abstract class ScreenMixin {
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     //#if MC >= 1.21.10
-    //$$ private void QS$mousePressed(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
-    //$$     if (QuickShulkerMod.getConfig().rightClickInv) {
-    //$$         if (this.menu.getCarried().isEmpty() && click.button() == 1 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
-    //#else
-    private void QS$mousePressed(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    private void QS$mousePressed(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
         if (QuickShulkerMod.getConfig().rightClickInv) {
-            if (this.menu.getCarried().isEmpty() && button == 1 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
+            if (this.menu.getCarried().isEmpty() && click.button() == 1 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
+    //#else
+    //$$ private void QS$mousePressed(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    //$$     if (QuickShulkerMod.getConfig().rightClickInv) {
+    //$$         if (this.menu.getCarried().isEmpty() && button == 1 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
     //#endif
                 if (handleTrigger()) {
                     this.skipNextRelease = true;
@@ -98,9 +115,9 @@ public abstract class ScreenMixin {
         }
         if (QuickShulkerMod.getConfig().keybingInInv) {
             //#if MC >= 1.21.10
-            //$$ if (QuickShulkerModClient.getKeybinding().matches(click.button(), InputConstants.Type.MOUSE)) {
+            if (QuickShulkerModClient.getKeybinding().matches(click.button(), InputConstants.Type.MOUSE)) {
             //#else
-            if (QuickShulkerModClient.getKeybinding().matches(button, InputConstants.Type.MOUSE)) {
+            //$$ if (QuickShulkerModClient.getKeybinding().matches(button, InputConstants.Type.MOUSE)) {
             //#endif
                 if (handleTrigger()) {
                     this.skipNextRelease = true;

@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "net.kyrptonaught.shulkerutils.mixin",
-  "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
+  "compatibilityLevel": "${compatibility_level}",
   "client": [
     "ShulkerMixin"
   ],

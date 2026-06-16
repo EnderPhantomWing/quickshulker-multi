@@ -25,6 +25,8 @@
   "key.quickshulker.config.quickEChest": "Включить открытие эндер-сундуков",
   "key.quickshulker.config.quickAnvil": "Включить открытие Наковальня",
   "key.quickshulker.config.quickGrindstone": "Включить открытие точильного камня",
+  "key.quickshulker.config.quickSmithingTable": "Включить открытие кузнечного стола",
+  "key.quickshulker.config.quickLoom": "Включить открытие ткацкого станка",
   "key.kyrptconfig.config.restartRequired": "Вступит в силу после перезапуска",
   "key.quickshulker.config.savedValue": "Сохранённое значение: %s",
   "key.quickshulker.config.keybindinsConflict": "\nЭта клавиша также используется для: %s",

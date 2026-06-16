@@ -1,21 +1,35 @@
 /*
- * This file is part of the Quick Shulker Multi project, licensed under the MIT License.
+ * MIT License
  *
- * Copyright (C) 2019 kyrptonaught, Hao_cen, Grayer0113, MoRanpcy, EnderPhantomWing and other contributors
+ * Copyright (c) 2019 kyrptonaught
+ * Copyright (c) 2024 Haocen2004
+ * Copyright (c) 2025 MoRanpcy
+ * Copyright (c) 2025 EnderPhantomWing
  *
- * {name} is free software: you can redistribute or modify it under the terms of the MIT License.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Browse the MIT License here. <https://mit-license.org/>
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 package net.kyrptonaught.kyrptconfig.config;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.kyrptonaught.jankson.Jankson;
-import net.minecraft.resources.ResourceLocation;
-//#if MC >= 1.21.11
-//$$ import net.minecraft.resources.Identifier;
-//#endif
+import blue.endless.jankson.Jankson;
+import net.minecraft.resources.Identifier;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,15 +52,15 @@ public class ConfigManager {
         JANKSON = new JanksonJsonLoader();
         Jankson.Builder builder = CustomJankson.customJanksonBuilder();
         setJANKSON(builder
-                //#if MC <=1.20.6
+                //#if MC <= 1.20.6
                 //$$ .registerSerializer(ResourceLocation.class, (identifier, marshaller) -> marshaller.serialize(identifier.toString()))
                 //$$ .registerDeserializer(String.class, ResourceLocation.class, (s, m) -> ResourceLocation.tryParse(s))
                 //#elseif MC >= 1.21.11
-                //$$ .registerSerializer(Identifier.class, (identifier, marshaller) -> marshaller.serialize(identifier.toString()))
-                //$$ .registerDeserializer(String.class, Identifier.class, (s, m) -> Identifier.parse(s))
+                .registerSerializer(Identifier.class, (identifier, marshaller) -> marshaller.serialize(identifier.toString()))
+                .registerDeserializer(String.class, Identifier.class, (s, m) -> Identifier.parse(s))
                 //#else
-                .registerSerializer(ResourceLocation.class, (identifier, marshaller) -> marshaller.serialize(identifier.toString()))
-                .registerDeserializer(String.class, ResourceLocation.class, (s, m) -> ResourceLocation.parse(s))
+                //$$ .registerSerializer(ResourceLocation.class, (identifier, marshaller) -> marshaller.serialize(identifier.toString()))
+                //$$ .registerDeserializer(String.class, ResourceLocation.class, (s, m) -> ResourceLocation.parse(s))
                 //#endif
                 .build());
     }

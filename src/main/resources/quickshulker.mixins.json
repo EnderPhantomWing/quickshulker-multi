@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "net.kyrptonaught.quickshulker.mixin",
-  "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
+  "compatibilityLevel": "${compatibility_level}",
   "mixins": [
     "AbstractContainerScreenInvoker",
     "AbstractContainerScreenMixin",

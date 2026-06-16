@@ -1,11 +1,28 @@
 /*
- * This file is part of the Quick Shulker Multi project, licensed under the MIT License.
+ * MIT License
  *
- * Copyright (C) 2019 kyrptonaught, Hao_cen, Grayer0113, MoRanpcy, EnderPhantomWing and other contributors
+ * Copyright (c) 2019 kyrptonaught
+ * Copyright (c) 2024 Haocen2004
+ * Copyright (c) 2025 MoRanpcy
+ * Copyright (c) 2025 EnderPhantomWing
  *
- * {name} is free software: you can redistribute or modify it under the terms of the MIT License.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Browse the MIT License here. <https://mit-license.org/>
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 package net.kyrptonaught.quickshulker.config;
@@ -25,6 +42,7 @@ public class ModConfigMenu {
 
         ConfigScreen configScreen = new ConfigScreen(screen, Component.translatable("key.quickshulker.config.category.title"));
         configScreen.setSavingEvent(() -> QuickShulkerMod.config.save());
+
         ConfigSection activationSection = new ConfigSection(configScreen, Component.translatable("key.quickshulker.config.category.activation"));
         activationSection.addConfigItem(new KeybindItem(Component.translatable("key.quickshulker.config.keybinding"), options.keybinding.rawKey, ConfigOptions.defualtKeybind).setSaveConsumer(value -> options.keybinding.setRaw(value)));
         activationSection.addConfigItem(new KeybindItem(Component.translatable("key.quickshulker.config.openSettingGui"), options.openSettingGui.rawKey, options.openSettingGui.defaultKey).setSaveConsumer(value -> options.openSettingGui.setRaw(value)));
@@ -35,7 +53,6 @@ public class ModConfigMenu {
 
         ConfigSection optionsSection = new ConfigSection(configScreen, Component.translatable("key.quickshulker.config.category.options"));
         optionsSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.rightClickClose"), options.rightClickClose, false).setSaveConsumer(value -> options.rightClickClose = value));
-
         @SuppressWarnings("unchecked")
         SubItem<Boolean> subItem = (SubItem<Boolean>) optionsSection.addConfigItem(new SubItem<>(Component.translatable("key.quickshulker.config.category.bundleing"), true));
         subItem.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.supportsBundlingInsert"), options.supportsBundlingInsert, true).setSaveConsumer(value -> options.supportsBundlingInsert = value));
@@ -49,6 +66,8 @@ public class ModConfigMenu {
         enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickCraftingTable"), options.quickCraftingTables, true).setSaveConsumer(value -> options.quickCraftingTables = value).setRequiresRestart());
         enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickStonecutter"), options.quickStonecutter, true).setSaveConsumer(value -> options.quickStonecutter = value).setRequiresRestart());
         enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickEChest"), options.quickEChest, true).setSaveConsumer(value -> options.quickEChest = value).setRequiresRestart());
+        enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickSmithingTable"), options.quickSmithingTable, true).setSaveConsumer(value -> options.quickSmithingTable = value).setRequiresRestart());
+        enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickLoom"), options.quickLoom, true).setSaveConsumer(value -> options.quickLoom = value).setRequiresRestart());
         enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickAnvil"), options.quickAnvil, true).setSaveConsumer(value -> options.quickAnvil = value).setRequiresRestart());
         enabledSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.quickGrindstone"), options.quickGrindstone, true).setSaveConsumer(value -> options.quickGrindstone = value).setRequiresRestart());
 

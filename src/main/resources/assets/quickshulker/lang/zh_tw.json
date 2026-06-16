@@ -25,6 +25,8 @@
   "key.quickshulker.config.quickEChest": "啟用打開末影箱",
   "key.quickshulker.config.quickAnvil": "啟用打開鐵砧",
   "key.quickshulker.config.quickGrindstone": "啟用打開砂輪",
+  "key.quickshulker.config.quickSmithingTable": "啟用打開鍛造台",
+  "key.quickshulker.config.quickLoom": "啟用打開制圖台",
   "key.kyrptconfig.config.restartRequired": "重啓後生效",
   "key.quickshulker.config.savedValue": "保存的值：%s",
   "key.quickshulker.config.keybindinsConflict": "\n該按鍵也用於：%s",

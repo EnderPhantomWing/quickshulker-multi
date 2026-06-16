@@ -1,11 +1,28 @@
 /*
- * This file is part of the Quick Shulker Multi project, licensed under the MIT License.
+ * MIT License
  *
- * Copyright (C) 2019 kyrptonaught, Hao_cen, Grayer0113, MoRanpcy, EnderPhantomWing and other contributors
+ * Copyright (c) 2019 kyrptonaught
+ * Copyright (c) 2024 Haocen2004
+ * Copyright (c) 2025 MoRanpcy
+ * Copyright (c) 2025 EnderPhantomWing
  *
- * {name} is free software: you can redistribute or modify it under the terms of the MIT License.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Browse the MIT License here. <https://mit-license.org/>
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 package net.kyrptonaught.kyrptconfig.config.screen.items;
@@ -22,10 +39,12 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
+//#if MC >= 26.2
+//$$ import net.minecraft.locale.Language;
+//#endif
 //#if MC >= 1.21.10
-//$$ import net.minecraft.client.input.KeyEvent;
-//$$ import net.minecraft.client.input.MouseButtonEvent;
-//#else
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 //#endif
 
 import org.lwjgl.glfw.GLFW;
@@ -52,7 +71,11 @@ public class KeybindItem extends ConfigItem<String> {
     }
 
     public MutableComponent getCleanName(String str) {
+        //#if MC >= 26.2
+        //$$ if (Language.getInstance().has(value))
+        //#else
         if (I18n.exists(value))
+        //#endif
             return Component.translatable(str);
         if (str == null || str.isBlank())
             return Component.translatable("key.keyboard.unknown");
@@ -84,9 +107,9 @@ public class KeybindItem extends ConfigItem<String> {
             }
             if (duplicate) {
                 //#if MC >= 1.21.10
-                //$$ keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.YELLOW));
+                keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.YELLOW));
                 //#else
-                keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.RED));
+                //$$ keyButton.setMessage(Component.literal("[ ").append(getCleanName(this.value).withStyle(ChatFormatting.WHITE)).append(Component.literal(" ]")).withStyle(ChatFormatting.RED));
                 //#endif
                 keyButton.setTooltip(Tooltip.create(Component.translatable("key.quickshulker.config.savedValue", Component.literal(this.value)).append(Component.translatable("key.quickshulker.config.keybindinsConflict", mutableText))));
             } else {
@@ -104,49 +127,49 @@ public class KeybindItem extends ConfigItem<String> {
 
     @Override
     //#if MC >= 1.21.10
-    //$$ public boolean keyPressed(KeyEvent input) {
-    //$$     if (isListening) {
-    //$$         if (input.input() == GLFW.GLFW_KEY_ESCAPE) {
-    //$$             setValue("");
-    //$$             return true;
-    //$$         }
-    //$$         setValue(InputConstants.getKey(input).getName());
-    //$$         return true;
-    //$$     }
-    //$$     return false;
-    //$$ }
-    //
-    //$$ @Override
-    //$$ public void mouseClicked(MouseButtonEvent click, boolean doubled) {
-    //$$     super.mouseClicked(click, doubled);
-    //$$     boolean handled;
-    //$$     handled = (keyButton.mouseClicked(click, doubled) || resetButton.mouseClicked(click, doubled));
-    //$$     if (isListening && !handled) {
-    //$$         setValue(InputConstants.Type.MOUSE.getOrCreate(click.button()).getName());
-    //$$     }
-    //$$ }
-    //#else
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyEvent input) {
         if (isListening) {
-            if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            if (input.input() == GLFW.GLFW_KEY_ESCAPE) {
                 setValue("");
                 return true;
             }
-            setValue(InputConstants.getKey(keyCode, scanCode).getName());
+            setValue(InputConstants.getKey(input).getName());
             return true;
         }
         return false;
     }
-
+    //
     @Override
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-        super.mouseClicked(mouseX, mouseY, button);
+    public void mouseClicked(MouseButtonEvent click, boolean doubled) {
+        super.mouseClicked(click, doubled);
         boolean handled;
-        handled = (keyButton.mouseClicked(mouseX, mouseY, button) || resetButton.mouseClicked(mouseX, mouseY, button));
+        handled = (keyButton.mouseClicked(click, doubled) || resetButton.mouseClicked(click, doubled));
         if (isListening && !handled) {
-            setValue(InputConstants.Type.MOUSE.getOrCreate(button).getName());
+            setValue(InputConstants.Type.MOUSE.getOrCreate(click.button()).getName());
         }
     }
+    //#else
+    //$$ public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    //$$     if (isListening) {
+    //$$         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+    //$$             setValue("");
+    //$$             return true;
+    //$$         }
+    //$$         setValue(InputConstants.getKey(keyCode, scanCode).getName());
+    //$$         return true;
+    //$$     }
+    //$$     return false;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void mouseClicked(double mouseX, double mouseY, int button) {
+    //$$     super.mouseClicked(mouseX, mouseY, button);
+    //$$     boolean handled;
+    //$$     handled = (keyButton.mouseClicked(mouseX, mouseY, button) || resetButton.mouseClicked(mouseX, mouseY, button));
+    //$$     if (isListening && !handled) {
+    //$$         setValue(InputConstants.Type.MOUSE.getOrCreate(button).getName());
+    //$$     }
+    //$$ }
     //#endif
 
     @Override

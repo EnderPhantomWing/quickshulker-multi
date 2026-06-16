@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "quickshulker",
-  "version": "${version}",
-  "name": "Quick Shulker Multi",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
   "description": "Quickly open Shulker boxes and more",
   "authors": [
     "kyrptonaught"
@@ -28,7 +28,7 @@
       }
     }
   },
-  "license": "MIT",
+  "license": "${mod_license}",
   "icon": "assets/quickshulker/icon.png",
   "environment": "*",
   "mixins": [
@@ -65,6 +65,7 @@
   },
   "depends": {
     "fabricloader": ">=0.12.5",
+    "minecraft": "${minecraft_dependency}",
     "fabric-api": "*",
     "java": ">=21"
   },
