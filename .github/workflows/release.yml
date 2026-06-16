@@ -20,7 +20,7 @@ on:
         default: false
       isPackages:
         description: |-
-          publish mods to GitHub Packages.
+          Publish mods to GitHub Packages.
           Default to true, set it to false if you just want to create a GitHub release without publishing to any maven repositories.
         type: boolean
         default: true
