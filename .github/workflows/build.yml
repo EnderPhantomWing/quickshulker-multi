@@ -70,7 +70,7 @@ jobs:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
           BUILD_PR: ${{ inputs.pr_build }}
-          BUILD_DEV: ${{ inputs.dev_build }}
+          BUILD_CI: ${{ inputs.dev_build }}
 
       - name: Build
         run: |

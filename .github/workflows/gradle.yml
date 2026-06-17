@@ -4,6 +4,9 @@ on:
   push:
     branches: [ '**' ] # stop build tag commits
 
+env:
+  IS_THIS_CI: true
+
 jobs:
   build:
     uses: ./.github/workflows/build.yml

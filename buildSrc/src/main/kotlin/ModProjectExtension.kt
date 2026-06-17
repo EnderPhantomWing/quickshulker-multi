@@ -68,16 +68,16 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     val commitCount     = getCommitCountNumber()
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
     val commitHash      = System.getenv("COMMIT_HASH")
-    val isRelease       = System.getenv("IS_THIS_RELEASE")?.toBoolean() == true || System.getenv("BUILD_RELEASE")?.toBoolean() == true
-    val isPR            = System.getenv("BUILD_PR")?.toBoolean() == true
-    val isDEV           = System.getenv("CI") == "true" || System.getenv("GITHUB_ACTIONS") == "true" || System.getenv("BUILD_DEV")?.toBoolean() == true
+    val isRelease       = System.getenv("BUILD_RELEASE")?.toBoolean() == true || System.getenv("IS_THIS_RELEASE")   ?.toBoolean() == true
+    val isPR            = System.getenv("BUILD_PR")     ?.toBoolean() == true || System.getenv("IS_THIS_PR")        ?.toBoolean() == true
+    val isCI            = System.getenv("BUILD_CI")     ?.toBoolean() == true || System.getenv("IS_THIS_CI")        ?.toBoolean() == true || System.getenv("GITHUB_ACTIONS") == "true"
 
-    return when {
+            return when {
         isRelease   -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-release"
-        isPR        -> "$modVersion-mc$mcVersion-$commitHash-pr.$buildNumber"
-        isDEV       -> {
+        isPR        -> "$modVersion-mc$mcVersion-$commitHash-$commitCount-pr"
+        isCI        -> {
             if (buildNumber != null) {
-                "$modVersion-mc$mcVersion-$commitHash-build.$buildNumber"
+                "$modVersion-mc$mcVersion-$commitHash-$commitCount-ci"
             } else {
                 "$modVersion-mc$mcVersion-$timestampMillis-development"
             }
