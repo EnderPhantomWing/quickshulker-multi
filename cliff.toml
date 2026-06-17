@@ -7,7 +7,7 @@
 # See https://keats.github.io/tera/docs/#introduction
 body = """
 {% if version %}\
-    ## {{ version | trim_start_matches(pat="v") }}
+    ## {{ version | trim_start_matches(pat="v") }} Update Overview ({{ timestamp | date(format="%Y-%m-%d") }})
 {% else %}\
     ## [unreleased]
 {% endif %}\
@@ -61,10 +61,15 @@ protect_breaking_commits = false
 # Assigns commits to groups.
 # Optionally sets the commit's scope and can decide to exclude commits from further processing.
 commit_parsers = [
-    { message = "^feat", group = "<!-- 0 -->News" },
-    { message = "^fix", group = "<!-- 1 -->Fixes" },
-    { message = "^chore|^ci|^revert|^refactor", group = "<!-- 2 -->Changes" },
-    { message = "docs|^style|^perf", group = "<!-- 3 -->Others" }
+    { message = "^feat", group = "<!-- 0 -->Features"},
+    { message = "^fix", group = "<!-- 1 -->Bug Fixes"},
+    { message = "^doc", group = "<!-- 2 -->Documentation"},
+    { message = "^perf", group = "<!-- 3 -->Performance"},
+    { message = "^refactor", group = "<!-- 4 -->Refactor"},
+    { message = "^style", group = "<!-- 5 -->Styling"},
+    { message = "^i18n", group = "<!-- 6 -->Internationalization" },
+    { message = "^ci", group = "<!-- 7 -->Continuous Integration" },
+    { message = "^chore", group = "<!-- 8 -->Others" },
 ]
 # Exclude commits that are not matched by any commit parser.
 filter_commits = true
