@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.mixin;
+package net.kyrptonaught.quickshulker.mixin.minecraft;
 
 import net.kyrptonaught.quickshulker.util.MouseDraggedHandler;
 import net.minecraft.client.gui.GuiGraphics;

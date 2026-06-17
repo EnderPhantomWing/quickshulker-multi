@@ -28,7 +28,7 @@
 package net.kyrptonaught.quickshulker.client;
 
 import net.kyrptonaught.quickshulker.api.Util;
-import net.kyrptonaught.quickshulker.mixin.CreativeSlotMixin;
+import net.kyrptonaught.quickshulker.mixin.minecraft.CreativeSlotMixin;
 import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;

@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.mixin;
+package net.kyrptonaught.quickshulker.mixin.minecraft;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.EnvType;

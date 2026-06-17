@@ -25,31 +25,17 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.mixin;
+package net.kyrptonaught.quickshulker.mixin.minecraft;
 
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.world.inventory.Slot;
-//#if MC >= 26.1
-//$$ import net.minecraft.world.inventory.ContainerInput;
-//#else
-import net.minecraft.world.inventory.ClickType;
-//#endif
+
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(AbstractContainerScreen.class)
-public interface AbstractContainerScreenInvoker {
-    //#if MC >= 1.21.2
-    @Invoker("getHoveredSlot")
-    //#else
-    //$$ @Invoker("findSlot")
-    //#endif
-    Slot QS$getSlotAt(double mouseX, double mouseY);
+@Mixin(CreativeModeInventoryScreen.SlotWrapper.class)
+public interface CreativeSlotMixin {
 
-    @Invoker("slotClicked")
-    //#if MC >= 26.1
-    //$$ void QS$onMouseClick(Slot slot, int slotId, int button, ContainerInput actionType);
-    //#else
-    void QS$onMouseClick(Slot slot, int slotId, int button, ClickType actionType);
-    //#endif
+    @Accessor(value = "target")
+    Slot getTarget();
 }

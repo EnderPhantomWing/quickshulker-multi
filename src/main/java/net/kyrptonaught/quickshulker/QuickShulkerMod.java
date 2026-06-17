@@ -38,11 +38,13 @@ import net.kyrptonaught.quickshulker.compat.ModUtils;
 import net.kyrptonaught.quickshulker.compat.reinfshulker.ReinfshulkerOpenableRegistry;
 import net.kyrptonaught.quickshulker.config.ConfigOptions;
 import net.kyrptonaught.quickshulker.event.EventListeners;
+import net.kyrptonaught.quickshulker.interfaces.MenuFactory;
 import net.kyrptonaught.quickshulker.network.EnderChestS2CSyncPacket;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
 import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
 import net.kyrptonaught.quickshulker.network.QuickBundlePacket;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.component.DataComponents;
@@ -75,6 +77,7 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
         OpenShulkerPacket.registerReceivePacket();
         QuickBundlePacket.registerReceivePacket();
         EventListeners.registerEventListeners();
+        LOGGER.info("QuickShulker Multi is loaded.");
 
         UseItemCallback.EVENT.register((player, world, hand) -> {
             ItemStack stack = player.getItemInHand(hand);
@@ -111,6 +114,26 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
         FabricLoader.getInstance().getEntrypoints(MOD_ID, RegisterQuickShulker.class).forEach(RegisterQuickShulker::registerProviders);
     }
 
+    private static ContainerLevelAccess createAccess(Player player) {
+        //#if MC >= 1.21.6
+        return ContainerLevelAccess.create(player.level(), player.blockPosition());
+        //#else
+        //$$ return ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition());
+        //#endif
+    }
+
+    private void registerMenuBlock(boolean enabled, Class<? extends Block> blockClass, Component title, MenuFactory factory) {
+        if (!enabled) return;
+        new QuickOpenableRegistry.Builder()
+                .setItem(blockClass)
+                .ignoreSingleStackCheck(true)
+                .setOpenAction((player, stack) -> player.openMenu(new SimpleMenuProvider(
+                        (i, playerInventory, playerEntity) -> factory.create(i, playerInventory, createAccess(playerEntity)),
+                        title
+                )))
+                .register();
+    }
+
     @Override
     public void registerProviders() {
         if (getConfig().quickShulkerBox)
@@ -130,74 +153,18 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                             ChestMenu.threeRows(i, playerInventory, player.getEnderChestInventory()), Component.translatable("container.enderchest")))))
                     .register();
 
-        if (getConfig().quickCraftingTables)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(CraftingTableBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                            new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.crafting")))))
-                            //#else
-                            //$$ new CraftingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.crafting")))))
-                            //#endif
-                    .register();
-
-        if (getConfig().quickStonecutter)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(StonecutterBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                            new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.stonecutter")))))
-                            //#else
-                            //$$ new StonecutterMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.stonecutter")))))
-                            //#endif
-                    .register();
-
-        if (getConfig().quickAnvil)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(AnvilBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                             new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.repair")))))
-                            //#else
-                            //$$ new AnvilMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.repair")))))
-                            //#endif
-                    .register();
-        if (getConfig().quickGrindstone)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(GrindstoneBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                            new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
-                            //#else
-                            //$$ new GrindstoneMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.grindstone_title")))))
-                            //#endif
-                    .register();
-        if (getConfig().quickSmithingTable)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(SmithingTableBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                            new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.upgrade")))))
-                            //#else
-                            //$$ new SmithingMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.upgrade")))))
-                            //#endif
-                    .register();
-        if (getConfig().quickLoom)
-            new QuickOpenableRegistry.Builder()
-                    .setItem(LoomBlock.class)
-                    .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            //#if MC >= 1.21.6
-                            new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.level(), player.blockPosition())), Component.translatable("container.loom")))))
-                            //#else
-                            //$$ new LoomMenu(i, playerInventory, ContainerLevelAccess.create(player.getCommandSenderWorld(), player.blockPosition())), Component.translatable("container.loom")))))
-                            //#endif
-                    .register();
+        registerMenuBlock(getConfig().quickCraftingTables, CraftingTableBlock.class,
+                Component.translatable("container.crafting"), CraftingMenu::new);
+        registerMenuBlock(getConfig().quickStonecutter, StonecutterBlock.class,
+                Component.translatable("container.stonecutter"), StonecutterMenu::new);
+        registerMenuBlock(getConfig().quickAnvil, AnvilBlock.class,
+                Component.translatable("container.repair"), AnvilMenu::new);
+        registerMenuBlock(getConfig().quickGrindstone, GrindstoneBlock.class,
+                Component.translatable("container.grindstone_title"), GrindstoneMenu::new);
+        registerMenuBlock(getConfig().quickSmithingTable, SmithingTableBlock.class,
+                Component.translatable("container.upgrade"), SmithingMenu::new);
+        registerMenuBlock(getConfig().quickLoom, LoomBlock.class,
+                Component.translatable("container.loom"), LoomMenu::new);
 
         //#if MC >= 26.1
         //#else

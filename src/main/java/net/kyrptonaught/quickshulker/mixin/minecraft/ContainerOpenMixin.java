@@ -25,17 +25,25 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.mixin;
+package net.kyrptonaught.quickshulker.mixin.minecraft;
 
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.world.inventory.Slot;
+import net.kyrptonaught.quickshulker.event.EventListeners;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.server.level.ServerPlayer;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(CreativeModeInventoryScreen.SlotWrapper.class)
-public interface CreativeSlotMixin {
-
-    @Accessor(value = "target")
-    Slot getTarget();
+@Mixin(ServerPlayer.class)
+public class ContainerOpenMixin {
+    @Inject(method = "openMenu", at = @At("TAIL"))
+    private void onOpenHandledScreen(MenuProvider factory, CallbackInfoReturnable<Boolean> cir) {
+        ServerPlayer player = (ServerPlayer) (Object) this;
+        if (player.containerMenu instanceof ChestMenu chestMenu && chestMenu.getContainer() == player.getEnderChestInventory()) {
+            EventListeners.containerOpenedListener(player, chestMenu);
+        }
+    }
 }

@@ -31,7 +31,7 @@ import com.google.common.collect.Sets;
 import net.fabricmc.fabric.mixin.screen.ScreenAccessor;
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.quickshulker.api.Util;
-import net.kyrptonaught.quickshulker.mixin.AbstractContainerScreenInvoker;
+import net.kyrptonaught.quickshulker.mixin.minecraft.AbstractContainerScreenInvoker;
 import net.kyrptonaught.shulkerutils.ShulkerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
