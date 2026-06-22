@@ -1,7 +1,6 @@
 # Quick Shulker Multi
 
-[English] | [[简体中文]](docs/README_zh_cn.md)  
-[[Contributing Guide]](docs/Contributing.md) | [[Contributing Guide (简体中文)]](docs/Contributing_zh_cn.md)
+[English] | [[简体中文]](docs/README_zh_cn.md)
 
 #### Quickly open shulker boxes(and more) without placing them down and refactor using preprocessor
 
@@ -11,6 +10,8 @@ Welcome to add localization to this project!
 Use the multi-version build tool preprocessor to build mods for multiple Minecraft versions quickly.
 
 This project's upstream [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) updates [kyrptonaught](https://github.com/kyrptonaught)'s [QuickShulker](https://github.com/kyrptonaught/quickshulker.git) mod to higher Minecraft versions and fixes something.
+
+The mod's i18n and l10n efforts need your help! We would be incredibly grateful if you could assist!
 
 ### Quick Download
 
