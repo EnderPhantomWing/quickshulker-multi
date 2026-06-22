@@ -50,7 +50,7 @@ val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, 
 
 private fun getCommitCountNumber(workDir: File = File(".")): Int? {
     return try {
-        val process = ProcessBuilder("git", "rev-list", "--count", "origin/mojang/preprocessor")
+        val process = ProcessBuilder("git", "rev-list", "--count", "mojmaps/preprocessor")
             .directory(workDir)
             .redirectErrorStream(true)
             .start()
