@@ -3,16 +3,16 @@
   "package": "net.kyrptonaught.quickshulker.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
-    "AbstractContainerScreenInvoker",
-    "AbstractContainerScreenMixin",
-    "ContainerMixin",
-    "ContainerOpenMixin",
-    "CraftingScreenHandlerMixin",
-    "ItemMixin"
+    "minecraft.AbstractContainerScreenInvoker",
+    "minecraft.AbstractContainerScreenMixin",
+    "minecraft.ContainerMixin",
+    "minecraft.ContainerOpenMixin",
+    "minecraft.CraftingScreenHandlerMixin",
+    "minecraft.ItemMixin"
   ],
   "client": [
-    "CreativeSlotMixin",
-    "ScreenMixin"
+    "minecraft.CreativeSlotMixin",
+    "minecraft.ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

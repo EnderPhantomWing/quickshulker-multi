@@ -27,8 +27,8 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
-import blue.endless.jankson.JsonElement;
-import blue.endless.jankson.api.DeserializationException;
+import quickshulker.blue.endless.jankson.JsonElement;
+import quickshulker.blue.endless.jankson.api.DeserializationException;
 
 import java.lang.reflect.Field;
 

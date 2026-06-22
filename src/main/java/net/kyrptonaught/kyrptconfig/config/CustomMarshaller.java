@@ -27,9 +27,9 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
-import blue.endless.jankson.JsonElement;
-import blue.endless.jankson.api.DeserializationException;
-import blue.endless.jankson.impl.MarshallerImpl;
+import quickshulker.blue.endless.jankson.JsonElement;
+import quickshulker.blue.endless.jankson.api.DeserializationException;
+import quickshulker.blue.endless.jankson.impl.MarshallerImpl;
 
 public class CustomMarshaller extends MarshallerImpl {
 

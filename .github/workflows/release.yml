@@ -12,12 +12,6 @@ on:
       - published
   workflow_dispatch:
     inputs:
-      isPublish:
-        description: |-
-          Publish mods to GitHub Packages.
-          Default to true, set it to false if you just want to create a GitHub release without publishing to any maven repositories.
-        type: boolean
-        default: true
       target_subproject:
         description: |-
           The subproject name(s) of the specified Minecraft version to be released, seperated with ",".
@@ -31,6 +25,9 @@ on:
           It must be an existing tag, otherwise publishing will fail.
         type: string
         required: true
+
+env:
+  IS_THIS_RELEASE: true
 
 jobs:
   show_action_parameters:
@@ -105,12 +102,11 @@ jobs:
     needs:
       - validate_release
     with:
-      target_subproject: ${{ github.event.inputs.target_subproject }}
       release: true
       download_dependencies: true
+      target_subproject: ${{ github.event.inputs.target_subproject }}
 
   publish:
-    if: github.event.inputs.isPublish == true
     uses: ./.github/workflows/publish.yml
     secrets: inherit
     needs:

@@ -27,8 +27,8 @@
 
 package net.kyrptonaught.kyrptconfig.keybinding;
 
-import blue.endless.jankson.JsonElement;
-import blue.endless.jankson.JsonPrimitive;
+import quickshulker.blue.endless.jankson.JsonElement;
+import quickshulker.blue.endless.jankson.JsonPrimitive;
 import net.kyrptonaught.kyrptconfig.config.CustomMarshaller;
 import net.kyrptonaught.kyrptconfig.config.CustomSerializable;
 import net.minecraft.client.Minecraft;

@@ -58,7 +58,7 @@ loom {
 
     runs {
         named("client") {
-            generateRunConfig
+            generateRunConfig.set(true)
             jvmArguments.set(commonVmArgs)
             programArguments.set(commonProgramArgs)
             runDirectory.dir("../../run/client")

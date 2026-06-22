@@ -28,3 +28,10 @@ Please choose the appropriate mod for your Minecraft version.
 - [Haocen2004/quickshulker](https://github.com/Haocen2004/quickshulker) Support MC 1.20.6 & 1.21(.1)
 - [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) Support MC 1.21+ and fix some bugs
 - And everyone who supports development, including you!
+
+### License and third-party sources
+
+This project follows the [MIT License](https://mit-license.org/)  
+[kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) is the initial version that provides module ideas.  
+[MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) has been ported to version 1.21+.    
+[LICENSE](LICENSE) | [THIRD PARTY NOTICES](THIRD_PARTY_NOTICES.md)

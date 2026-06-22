@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Java 25
         uses: actions/setup-java@v5
@@ -68,7 +70,7 @@ jobs:
           BUILD_ID: ${{ github.run_number }}
           BUILD_RELEASE: ${{ inputs.release }}
           BUILD_PR: ${{ inputs.pr_build }}
-          BUILD_DEV: ${{ inputs.dev_build }}
+          BUILD_CI: ${{ inputs.dev_build }}
 
       - name: Build
         run: |
