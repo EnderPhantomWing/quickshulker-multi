@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,20 +22,31 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package quickshulker.blue.endless.jankson.impl;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import quickshulker.blue.endless.jankson.JsonElement;
 
-import java.lang.reflect.Field;
+import javax.annotation.Nullable;
 
-public class CustomJankson {
-    public static Jankson.Builder customJanksonBuilder() {
-        return new Jankson.Builder(true);
+/**
+ * Holds both a JsonElement and its associated comment, and any other relevant data
+ */
+public class AnnotatedElement {
+    protected  String comment;
+    protected JsonElement elem;
+
+    public AnnotatedElement(@Nullable JsonElement elem, @Nullable String comment) {
+        this.comment = comment;
+        this.elem = elem;
     }
 
-    public static Boolean shouldSerializeField(Object t, Field field) {
-        if (t instanceof CustomSerializable customSerializable)
-            return customSerializable.shouldSerializeField(field);
-        return true;
+    @Nullable
+    public String getComment() {
+        return comment;
+    }
+
+    @Nullable
+    public JsonElement getElement() {
+        return elem;
     }
 }

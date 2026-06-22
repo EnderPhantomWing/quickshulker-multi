@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,20 +22,21 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package quickshulker.blue.endless.jankson.api;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import quickshulker.blue.endless.jankson.impl.serializer.InternalDeserializerFunction;
 
-import java.lang.reflect.Field;
+@FunctionalInterface
+public interface DeserializerFunction<A, B> extends InternalDeserializerFunction<B> {
+    B apply(A a, Marshaller m) throws DeserializationException;
 
-public class CustomJankson {
-    public static Jankson.Builder customJanksonBuilder() {
-        return new Jankson.Builder(true);
-    }
-
-    public static Boolean shouldSerializeField(Object t, Field field) {
-        if (t instanceof CustomSerializable customSerializable)
-            return customSerializable.shouldSerializeField(field);
-        return true;
+    @SuppressWarnings("unchecked")
+    @Override
+    default B deserialize(Object a, Marshaller m) throws DeserializationException {
+        try {
+            return apply((A) a, m);
+        } catch (ClassCastException ex) {
+            throw new DeserializationException(ex);
+        }
     }
 }

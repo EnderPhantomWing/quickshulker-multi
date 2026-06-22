@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,20 +22,42 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package quickshulker.blue.endless.jankson;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import java.lang.reflect.Field;
+/**
+ * Tagging class for JSON objects, arrays, and primitives
+ */
+public abstract class JsonElement implements Cloneable {
+    public abstract JsonElement clone();
 
-public class CustomJankson {
-    public static Jankson.Builder customJanksonBuilder() {
-        return new Jankson.Builder(true);
+    public String toJson() {
+        return toJson(false, false, 0);
     }
 
-    public static Boolean shouldSerializeField(Object t, Field field) {
-        if (t instanceof CustomSerializable customSerializable)
-            return customSerializable.shouldSerializeField(field);
-        return true;
+    public String toJson(boolean comments, boolean newlines) {
+        return toJson(comments, newlines, 0);
     }
+
+    public abstract String toJson(boolean comments, boolean newlines, int depth);
+
+    public String toJson(JsonGrammar grammar, int depth) {
+        StringWriter w = new StringWriter();
+        try {
+            toJson(w, grammar, depth);
+            w.flush();
+            return w.toString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public String toJson(JsonGrammar grammar) {
+        return toJson(grammar, 0);
+    }
+
+    public abstract void toJson(Writer writer, JsonGrammar grammar, int depth) throws IOException;
 }

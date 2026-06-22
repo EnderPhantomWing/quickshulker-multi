@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,20 +22,15 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package quickshulker.blue.endless.jankson.annotation;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.lang.reflect.Field;
-
-public class CustomJankson {
-    public static Jankson.Builder customJanksonBuilder() {
-        return new Jankson.Builder(true);
-    }
-
-    public static Boolean shouldSerializeField(Object t, Field field) {
-        if (t instanceof CustomSerializable customSerializable)
-            return customSerializable.shouldSerializeField(field);
-        return true;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface SerializedName {
+    String value();
 }
