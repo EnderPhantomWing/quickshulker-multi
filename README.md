@@ -13,6 +13,22 @@ This project's upstream [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quic
 
 The mod's i18n and l10n efforts need your help! We would be incredibly grateful if you could assist!
 
+### Mod Naming Convention
+
+| build               | naming                                                                                                     |
+|---------------------|------------------------------------------------------------------------------------------------------------|
+| release             | quickshulker-v{mod_version}-mc{mc_version}-{commit_count}-{commit_hash}-release.jar                        |
+| pull_request        | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_branch_commit_count}-{commit_hash}-pr.jar |
+| ci                  | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_branch_commit_count}-{commit_hash}-ci.jar |
+| local               | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_timestampmillis}-development.jar          |
+| maven               | {mc_version}-{mod_version}.jar                                                                             |
+| **EXAMPLE BUILDS:** | **EXAMPLE NAMING:**                                                                                        |
+| release             | `quickshulker-v3.2.6-mc1.21.11-187-6068667-release.jar`                                                    |
+| pull_request        | `quickshulker-v3.2.6-mc1.21.11-dev-187-eba238a-pr.jar`                                                     |
+| ci                  | `quickshulker-v3.2.7-mc1.21.11-dev-192-6fb9034-ci.jar`                                                     |
+| local               | `quickshulker-v3.2.7-mc1.21.11-dev-1782234626080-development.jar`                                          |
+| maven               | `1.21.11-3.2.7.jar`                                                                                        |
+
 ### Quick Download
 
 Click on the link below to download.  
