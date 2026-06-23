@@ -72,7 +72,8 @@ private fun getCurrentGitBranch(workDir: File = File(".")): String? {
         val output = process.inputStream.bufferedReader().readText().trim()
         val exitCode = process.waitFor()
         if (exitCode == 0) {
-            if (output == "HEAD") null else output
+            if (output == "HEAD") null
+            else output.replace(Regex("[\\\\/:*?\"<>|]"), ".")
         } else {
             "detached"
         }
@@ -95,8 +96,8 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     val base = "$modVersion-mc$mcVersion"
     return when {
         isRelease -> "${base}-${commitCount}-${commitHash}-release"
-        isPR      -> "${base}-${currentBranch}.${commitCount}-${commitHash}-pr"
-        else      -> "${base}-${currentBranch}.${
+        isPR      -> "${base}-${currentBranch}-${commitCount}-${commitHash}-pr"
+        else      -> "${base}-${currentBranch}-${
             if (isCI && buildNumber != null) "${commitCount}-${commitHash}-ci"
             else "${timestampMillis}-development"
         }"
