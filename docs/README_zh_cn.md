@@ -11,6 +11,25 @@
 
 此模组上游仓库 [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) 更新自 [kyrptonaught](https://github.com/kyrptonaught)的 [QuickShulker](https://github.com/kyrptonaught/quickshulker.git) 模组 支持高版本同时修复部分bug。
 
+模组国际化和本地化需要您的帮助！如果可以的话那太感谢你了！
+
+### 模组命名规范
+
+| build               | naming                                                                                                     |
+|---------------------|------------------------------------------------------------------------------------------------------------|
+| release             | quickshulker-v{mod_version}-mc{mc_version}-{commit_count}-{commit_hash}-release.jar                        |
+| pull_request        | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_branch_commit_count}-{commit_hash}-pr.jar |
+| ci                  | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_branch_commit_count}-{commit_hash}-ci.jar |
+| local               | quickshulker-v{mod_version}-mc{mc_version}-{build_branch}-{build_timestampmillis}-development.jar          |
+| maven               | {mc_version}-{mod_version}.jar                                                                             |
+| **EXAMPLE BUILDS:** | **EXAMPLE NAMING:**                                                                                        |
+| release             | `quickshulker-v3.2.6-mc1.21.11-187-6068667-release.jar`                                                    |
+| pull_request        | `quickshulker-v3.2.6-mc1.21.11-dev-187-eba238a-pr.jar`                                                     |
+| ci                  | `quickshulker-v3.2.7-mc1.21.11-dev-192-6fb9034-ci.jar`                                                     |
+| local               | `quickshulker-v3.2.7-mc1.21.11-dev-1782234626080-development.jar`                                          |
+| maven               | `1.21.11-3.2.7.jar`                                                                                        |
+
+
 ## 下载
 
 单击下面的链接进行下载。  
@@ -27,3 +46,10 @@
 - [Haocen2004/quickshulker](https://github.com/Haocen2004/quickshulker) 支持 MC 1.20.6 和 1.21(.1)
 - [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) 支持 MC 1.21+ 并且修复部分bug
 - 以及所有支持开发的人，包括你！
+
+### 许可证与第三方来源
+
+本项目遵循 [MIT 许可证](https://mit-license.org/)  
+[kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) 是提供模组整体功能的初始版本  
+[MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) 移植模组至 1.21+ 版本  
+[许可证](../LICENSE) | [第三方声明](../THIRD_PARTY_NOTICES.md)

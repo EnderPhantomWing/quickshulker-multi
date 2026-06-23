@@ -63,9 +63,30 @@ private fun getCommitCountNumber(workDir: File = File(".")): Int? {
     }
 }
 
+private fun getCurrentGitBranch(workDir: File = File(".")): String? {
+    return try {
+        val process = ProcessBuilder("git", "rev-parse", "--abbrev-ref", "HEAD")
+            .directory(workDir)
+            .redirectErrorStream(true)
+            .start()
+        val output = process.inputStream.bufferedReader().readText().trim()
+        val exitCode = process.waitFor()
+        if (exitCode == 0) {
+            if (output == "HEAD") null
+            else output.replace(Regex("[\\\\/:*?\"<>|]"), ".")
+        } else {
+            "detached"
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+
 private fun getFullProjectVersion(mcVersion: String?, modVersion: String): String {
     val timestampMillis = System.currentTimeMillis()
     val commitCount     = getCommitCountNumber()
+    val currentBranch   = getCurrentGitBranch()
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
     val commitHash      = System.getenv("COMMIT_HASH")
     val isRelease       = System.getenv("BUILD_RELEASE")?.toBoolean() == true || System.getenv("IS_THIS_RELEASE")   ?.toBoolean() == true
@@ -76,7 +97,7 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     return when {
         isRelease -> "${base}-${commitCount}-${commitHash}-release"
         isPR      -> "${base}-${commitCount}-${commitHash}-pr"
-        else      -> "${base}-${
+        else      -> "${base}-${currentBranch}-${
             if (isCI && buildNumber != null) "${commitCount}-${commitHash}-ci"
             else "${timestampMillis}-development"
         }"
