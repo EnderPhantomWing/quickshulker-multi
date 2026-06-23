@@ -96,7 +96,7 @@ private fun getFullProjectVersion(mcVersion: String?, modVersion: String): Strin
     val base = "$modVersion-mc$mcVersion"
     return when {
         isRelease -> "${base}-${commitCount}-${commitHash}-release"
-        isPR      -> "${base}-${currentBranch}-${commitCount}-${commitHash}-pr"
+        isPR      -> "${base}-${commitCount}-${commitHash}-pr"
         else      -> "${base}-${currentBranch}-${
             if (isCI && buildNumber != null) "${commitCount}-${commitHash}-ci"
             else "${timestampMillis}-development"
