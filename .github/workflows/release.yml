@@ -113,7 +113,6 @@ jobs:
       - build
     with:
       release: true
-      publish: true
       download_dependencies: true
 
   release:
