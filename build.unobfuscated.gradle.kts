@@ -61,10 +61,10 @@ loom {
             generateRunConfig.set(true)
             jvmArguments.set(commonVmArgs)
             programArguments.set(commonProgramArgs)
-            runDirectory.dir("../../run/client")
+            runDirectory.file("../../run/client")
         }
         named("server") {
-            runDirectory.dir("../../run/server")
+            runDirectory.file("../../run/server")
         }
     }
 }

@@ -13,6 +13,15 @@ This project's upstream [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quic
 
 The mod's i18n and l10n efforts need your help! We would be incredibly grateful if you could assist!
 
+### Quick Download
+
+Click on the link below to download.  
+Please choose the appropriate mod for your Minecraft version.
+
+* [The Latest RELEASE (GitHub Release)](https://github.com/EnderPhantomWing/quickshulker-multi/releases/latest)
+
+* [The Newest SNAPSHOT (GitHub Actions)](https://github.com/EnderPhantomWing/quickshulker-multi/actions)
+
 ### Mod Naming Convention
 
 | build               | naming                                                                                                     |
@@ -28,15 +37,6 @@ The mod's i18n and l10n efforts need your help! We would be incredibly grateful 
 | ci                  | `quickshulker-v3.2.7-mc1.21.11-dev-192-6fb9034-ci.jar`                                                     |
 | local               | `quickshulker-v3.2.7-mc1.21.11-dev-1782234626080-development.jar`                                          |
 | maven               | `1.21.11-3.2.7.jar`                                                                                        |
-
-### Quick Download
-
-Click on the link below to download.  
-Please choose the appropriate mod for your Minecraft version.
-
-* [The Latest RELEASE (GitHub Release)](https://github.com/EnderPhantomWing/quickshulker-multi/releases/latest)
-
-* [The Newest SNAPSHOT (GitHub Actions)](https://github.com/EnderPhantomWing/quickshulker-multi/actions)
 
 ### Thanks
 
