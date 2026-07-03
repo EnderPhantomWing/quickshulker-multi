@@ -50,6 +50,15 @@ if (System.getenv("JITPACK") == "true") {
     base.archivesName.set(modArchivesBaseName)
 }
 
+// TODO: It may not work and remains to be tested
+tasks.named<JavaExec>("runClient") {
+    workingDir = file("$rootDir/run/client")
+}
+
+tasks.named<JavaExec>("runServer") {
+    workingDir = file("$rootDir/run/server")
+}
+
 loom {
     accessWidenerPath.set(file("quickshulker.accesswidener"))
 
