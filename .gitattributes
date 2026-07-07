@@ -1,0 +1,51 @@
+* text=auto
+
+*.java          text diff=java eol=lf
+*.properties    text eol=lf
+*.xml           text eol=lf
+
+*.gradle        text diff=java eol=lf
+*.gradle.kts    text diff=kotlin eol=lf
+gradle.properties text eol=lf
+gradle-wrapper.properties text eol=lf
+
+mods.toml       text eol=lf
+*.toml          text eol=lf
+*.accesswidener text eol=lf
+*.at            text eol=lf
+*.cfg           text eol=lf
+
+*.json          text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+*.md            text diff=markdown eol=lf
+*.txt           text eol=lf
+.gitattributes  text eol=lf
+.gitignore      text eol=lf
+
+*.sh            text eol=lf
+*.bash          text eol=lf
+
+*.bat           text eol=crlf
+
+*.class         binary
+*.jar           binary
+*.war           binary
+
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.webp          binary
+
+*.zip           binary
+*.tar.gz        binary
+*.dll           binary
+*.so            binary
+*.jks           binary
+*.p12           binary
+
+.gitattributes export-ignore
+.gitignore      export-ignore
+*.log           export-ignore

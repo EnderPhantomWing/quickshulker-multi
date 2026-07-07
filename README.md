@@ -22,7 +22,9 @@ Please choose the appropriate mod for your Minecraft version.
 
 * [The Newest SNAPSHOT (GitHub Actions)](https://github.com/EnderPhantomWing/quickshulker-multi/actions)
 
-### Mod Naming Convention
+### Mod Naming Convention  
+
+ * The mod naming convention will be updated in the next major update
 
 | build               | naming                                                                                                     |
 |---------------------|------------------------------------------------------------------------------------------------------------|
@@ -51,4 +53,4 @@ Please choose the appropriate mod for your Minecraft version.
 This project follows the [MIT License](https://mit-license.org/)  
 [kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) is the initial version that provides module ideas.  
 [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) has been ported to version 1.21+.    
-[LICENSE](LICENSE) | [THIRD PARTY NOTICES](THIRD_PARTY_NOTICES.md)
+[LICENSE](LICENSE) | [THIRD PARTY NOTICES](docs/THIRD_PARTY_NOTICES.md)

@@ -15,6 +15,8 @@
 
 ### 模组命名规范
 
+ * 将会在下个大版本更新中更新模组命名方式
+
 | build               | naming                                                                                                     |
 |---------------------|------------------------------------------------------------------------------------------------------------|
 | release             | quickshulker-v{mod_version}-mc{mc_version}-{commit_count}-{commit_hash}-release.jar                        |
@@ -52,4 +54,4 @@
 本项目遵循 [MIT 许可证](https://mit-license.org/)  
 [kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) 是提供模组整体功能的初始版本  
 [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) 移植模组至 1.21+ 版本  
-[许可证](../LICENSE) | [第三方声明](../THIRD_PARTY_NOTICES.md)
+[许可证](../LICENSE) | [第三方声明](THIRD_PARTY_NOTICES.md)

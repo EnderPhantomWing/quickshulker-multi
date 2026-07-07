@@ -53,7 +53,6 @@ if (System.getenv("JITPACK") == "true") {
 	base.archivesName.set(modArchivesBaseName)
 }
 
-// TODO: It may not work and remains to be tested
 tasks.named<JavaExec>("runClient") {
 	workingDir = file("$rootDir/run/client")
 }
@@ -73,10 +72,10 @@ loom {
             generateRunConfig.set(true)
             jvmArguments.set(commonVmArgs)
 			programArguments.set(commonProgramArgs)
-			runDirectory.file("../../run/client")
+			runDirectory.dir("../../run/client")
 		}
 		named("server") {
-			runDirectory.file("../../run/server")
+			runDirectory.dir("../../run/server")
 		}
 	}
 }
