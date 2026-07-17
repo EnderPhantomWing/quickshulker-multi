@@ -38,7 +38,9 @@ dependencies {
 
     // Implementation Mods
     implementation("net.fabricmc.fabric-api:fabric-api:${prop("fabric_api_version")}")
-    implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
+    if (mcVersionInt < 260300) {
+        implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
+    }
 
     implementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
@@ -48,6 +50,14 @@ if (System.getenv("JITPACK") == "true") {
     base.archivesName.set("$modArchivesBaseName-mc$mcVersion")
 } else {
     base.archivesName.set(modArchivesBaseName)
+}
+
+tasks.named<JavaExec>("runClient") {
+    workingDir = file("$rootDir/run/client")
+}
+
+tasks.named<JavaExec>("runServer") {
+    workingDir = file("$rootDir/run/server")
 }
 
 loom {
@@ -113,14 +123,12 @@ publishing {
     // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
         mavenLocal()
-        if (System.getenv("isPublish") == "true") {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/EnderPhantomWing/quickshulker-multi")
-                credentials {
-                    username = System.getenv("GH_USERNAME")
-                    password = System.getenv("GH_TOKEN")
-                }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/EnderPhantomWing/quickshulker-multi")
+            credentials {
+                username = System.getenv("GH_USERNAME")
+                password = System.getenv("GH_TOKEN")
             }
         }
     }

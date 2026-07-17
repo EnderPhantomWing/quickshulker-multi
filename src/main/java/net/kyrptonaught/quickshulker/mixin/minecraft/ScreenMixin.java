@@ -44,7 +44,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.KeyEvent;
 //#endif
+//#if MC < 26.3
 import org.lwjgl.glfw.GLFW;
+//#else
+//$$ import org.lwjgl.sdl.SDLMouse;
+//#endif
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,7 +74,9 @@ public abstract class ScreenMixin {
     @Inject(method = "init", at = @At("TAIL"))
     private void fixMouse(CallbackInfo ci) {
         if (QuickShulkerMod.lastMouseX != 0 && QuickShulkerMod.lastMouseY != 0) {
-            //#if MC >= 1.21.10
+            //#if MC >= 26.3
+            //$$ SDLMouse.SDL_WarpMouseInWindow(Minecraft.getInstance().getWindow().handle(), (float) QuickShulkerMod.lastMouseX, (float) QuickShulkerMod.lastMouseY);
+            //#elseif MC >= 1.21.10
             GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().handle(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
             //#else
             //$$ GLFW.glfwSetCursorPos(Minecraft.getInstance().getWindow().getWindow(), QuickShulkerMod.lastMouseX, QuickShulkerMod.lastMouseY);
@@ -84,12 +90,16 @@ public abstract class ScreenMixin {
     //#if MC >= 1.21.10
     private void QS$keyPressed(KeyEvent input, CallbackInfoReturnable<Boolean> cir) {
         if (QuickShulkerMod.getConfig().keybingInInv) {
+            //#if MC >= 26.3
+            //$$ if (QuickShulkerModClient.getKeybinding().matches(input.input(), InputConstants.Type.KEYBOARD)) {
+            //#else
             if (QuickShulkerModClient.getKeybinding().matches(input.input(), InputConstants.Type.KEYSYM)) {
+            //#endif
     //#else
     //$$ private void QS$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
     //$$     if (QuickShulkerMod.getConfig().keybingInInv) {
     //$$         if (QuickShulkerModClient.getKeybinding().matches(keyCode, InputConstants.Type.KEYSYM)) {
-                //#endif
+    //#endif
                 if (handleTrigger())
                     cir.setReturnValue(true);
             }
@@ -100,7 +110,11 @@ public abstract class ScreenMixin {
     //#if MC >= 1.21.10
     private void QS$mousePressed(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
         if (QuickShulkerMod.getConfig().rightClickInv) {
+            //#if MC >= 26.3
+            //$$ if (this.menu.getCarried().isEmpty() && click.button() == 3 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
+            //#else
             if (this.menu.getCarried().isEmpty() && click.button() == 1 && this.hoveredSlot != null && this.hoveredSlot.getItem().getCount() == 1) {
+            //#endif
     //#else
     //$$ private void QS$mousePressed(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
     //$$     if (QuickShulkerMod.getConfig().rightClickInv) {

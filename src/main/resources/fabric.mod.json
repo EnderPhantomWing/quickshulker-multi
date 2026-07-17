@@ -14,9 +14,9 @@
     "EnderPhantomWing"
   ],
   "contact": {
-    "homepage": "https://github.com/EnderPhantomWing/quickshulker-multi",
-    "sources": "https://github.com/EnderPhantomWing/quickshulker-multi",
-    "issues": "https://github.com/EnderPhantomWing/quickshulker-multi/issues"
+    "homepage": "${mod_homepage}",
+    "sources": "${mod_homepage}",
+    "issues": "${mod_homepage}/issues"
   },
   "custom": {
     "modmenu": {
@@ -64,7 +64,7 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.12.5",
+    "fabricloader": ">=0.16.14",
     "minecraft": "${minecraft_dependency}",
     "fabric-api": "*",
     "java": ">=21"

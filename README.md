@@ -13,7 +13,18 @@ This project's upstream [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quic
 
 The mod's i18n and l10n efforts need your help! We would be incredibly grateful if you could assist!
 
-### Mod Naming Convention
+### Quick Download
+
+Click on the link below to download.  
+Please choose the appropriate mod for your Minecraft version.
+
+* [The Latest RELEASE (GitHub Release)](https://github.com/EnderPhantomWing/quickshulker-multi/releases/latest)
+
+* [The Newest SNAPSHOT (GitHub Actions)](https://github.com/EnderPhantomWing/quickshulker-multi/actions)
+
+### Mod Naming Convention  
+
+ * The mod naming convention will be updated in the next major update
 
 | build               | naming                                                                                                     |
 |---------------------|------------------------------------------------------------------------------------------------------------|
@@ -29,15 +40,6 @@ The mod's i18n and l10n efforts need your help! We would be incredibly grateful 
 | local               | `quickshulker-v3.2.7-mc1.21.11-dev-1782234626080-development.jar`                                          |
 | maven               | `1.21.11-3.2.7.jar`                                                                                        |
 
-### Quick Download
-
-Click on the link below to download.  
-Please choose the appropriate mod for your Minecraft version.
-
-* [The Latest RELEASE (GitHub Release)](https://github.com/EnderPhantomWing/quickshulker-multi/releases/latest)
-
-* [The Newest SNAPSHOT (GitHub Actions)](https://github.com/EnderPhantomWing/quickshulker-multi/actions)
-
 ### Thanks
 
 - [kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) Mod author
@@ -51,4 +53,4 @@ Please choose the appropriate mod for your Minecraft version.
 This project follows the [MIT License](https://mit-license.org/)  
 [kyrptonaught/quickshulker](https://github.com/kyrptonaught/quickshulker) is the initial version that provides module ideas.  
 [MoRanpcy/quickshulker](https://github.com/MoRanpcy/quickshulker) has been ported to version 1.21+.    
-[LICENSE](LICENSE) | [THIRD PARTY NOTICES](THIRD_PARTY_NOTICES.md)
+[LICENSE](LICENSE) | [THIRD PARTY NOTICES](docs/THIRD_PARTY_NOTICES.md)

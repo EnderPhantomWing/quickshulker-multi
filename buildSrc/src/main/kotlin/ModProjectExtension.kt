@@ -21,7 +21,7 @@ fun Project.downloadDependencyMod(downloadUrl: String, fileName: String? = null)
 
 val Project.modId get() = propStr("mod_id")
 val Project.modName get() = propStr("mod_name")
-val Project.modVersion get() = propStr("mod_version")
+val Project.modVersion get() = getModVersion()
 val Project.modMavenGroup get() = propStr("mod_maven_group")
 val Project.modArchivesBaseName get() = propStr("mod_archives_base_name")
 
@@ -45,8 +45,24 @@ val Project.javaVersion
     }
 val Project.mixinJavaVersion get() = "JAVA_${javaVersion}"
 
+@Suppress("unused")
 val Project.fullProjectVersionName: String get() = "v$fullProjectVersion"
 val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, modVersion)
+
+private fun getModVersion(workDir: File = File(".")): String? {
+    return try {
+        val process = ProcessBuilder("git", "describe", "--tags", "--always", "--abbrev=0", "origin/mojmaps/preprocessor")
+            .directory(workDir)
+            .redirectErrorStream(true)
+            .start()
+        val output = process.inputStream.bufferedReader().readText().trim()
+        val exitCode = process.waitFor()
+        if (exitCode == 0 && output.isNotEmpty()) output else null
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
 
 private fun getCommitCountNumber(workDir: File = File(".")): Int? {
     return try {
@@ -83,7 +99,7 @@ private fun getCurrentGitBranch(workDir: File = File(".")): String? {
     }
 }
 
-private fun getFullProjectVersion(mcVersion: String?, modVersion: String): String {
+private fun getFullProjectVersion(mcVersion: String?, modVersion: String?): String {
     val timestampMillis = System.currentTimeMillis()
     val commitCount     = getCommitCountNumber()
     val currentBranch   = getCurrentGitBranch()

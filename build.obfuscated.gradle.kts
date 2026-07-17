@@ -53,6 +53,14 @@ if (System.getenv("JITPACK") == "true") {
 	base.archivesName.set(modArchivesBaseName)
 }
 
+tasks.named<JavaExec>("runClient") {
+	workingDir = file("$rootDir/run/client")
+}
+
+tasks.named<JavaExec>("runServer") {
+	workingDir = file("$rootDir/run/server")
+}
+
 loom {
 	accessWidenerPath.set(file("quickshulker.accesswidener"))
 
@@ -115,15 +123,12 @@ publishing {
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		mavenLocal()
-		if (System.getenv("isPublish") == "true") {
-			maven {
-				name = "GitHubPackages"
-				url = uri("https://maven.pkg.github.com/EnderPhantomWing/quickshulker-multi")
-				credentials {
-					username = System.getenv("GH_USERNAME")
-					password = System.getenv("GH_TOKEN")
-				}
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/EnderPhantomWing/quickshulker-multi")
+			credentials {
+				username = System.getenv("GH_USERNAME")
+				password = System.getenv("GH_TOKEN")
 			}
 		}
 	}
