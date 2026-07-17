@@ -47,7 +47,11 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 //#endif
 
+//#if MC >= 26.3
+//$$ import org.lwjgl.sdl.SDLScancode;
+//#else
 import org.lwjgl.glfw.GLFW;
+//#endif
 
 public class KeybindItem extends ConfigItem<String> {
     private final NotSuckyButton keyButton;
@@ -129,7 +133,11 @@ public class KeybindItem extends ConfigItem<String> {
     //#if MC >= 1.21.10
     public boolean keyPressed(KeyEvent input) {
         if (isListening) {
+            //#if MC >= 26.3
+            //$$ if (input.input() == SDLScancode.SDL_SCANCODE_ESCAPE) {
+            //#else
             if (input.input() == GLFW.GLFW_KEY_ESCAPE) {
+            //#endif
                 setValue("");
                 return true;
             }
