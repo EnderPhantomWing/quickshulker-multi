@@ -40,6 +40,7 @@ import org.lwjgl.glfw.GLFW;
 //$$ import org.lwjgl.sdl.SDLMouse;
 //#endif
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class CustomKeyBinding implements CustomSerializable {
