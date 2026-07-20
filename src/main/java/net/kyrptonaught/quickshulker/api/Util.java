@@ -41,7 +41,7 @@ public class Util {
 
     public static void openItem(Player player, int invSlot) {
         if (invSlot < 0) {
-            System.out.println("[QuickShulker]: unknown slot opened");
+            System.out.println("[QuickShulker Multi]: unknown slot opened");
             //return; //not preventing the crash might make it easier to debug a fix.
         }
         openItem(player, invSlot, player.containerMenu.slots.get(invSlot).getContainerSlot());

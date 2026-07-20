@@ -29,5 +29,4 @@ package net.kyrptonaught.shulkerutils;
 
 public interface UpgradableShulker {
     int QS$getInventorySize();
-
 }

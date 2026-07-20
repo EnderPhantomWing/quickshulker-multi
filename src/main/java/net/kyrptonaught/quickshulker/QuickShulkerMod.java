@@ -38,7 +38,8 @@ import net.kyrptonaught.quickshulker.compat.ModUtils;
 import net.kyrptonaught.quickshulker.compat.reinfshulker.ReinfshulkerOpenableRegistry;
 import net.kyrptonaught.quickshulker.config.ConfigOptions;
 import net.kyrptonaught.quickshulker.event.EventListeners;
-import net.kyrptonaught.quickshulker.interfaces.MenuFactory;
+import net.kyrptonaught.quickshulker.api.MenuFactory;
+import net.kyrptonaught.quickshulker.api.RegisterQuickShulker;
 import net.kyrptonaught.quickshulker.network.EnderChestS2CSyncPacket;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
 import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
@@ -127,10 +128,9 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
         new QuickOpenableRegistry.Builder()
                 .setItem(blockClass)
                 .ignoreSingleStackCheck(true)
-                .setOpenAction((player, stack) -> player.openMenu(new SimpleMenuProvider(
-                        (i, playerInventory, playerEntity) -> factory.create(i, playerInventory, createAccess(playerEntity)),
-                        title
-                )))
+                .setOpenAction((player, stack) ->
+                        player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
+                                factory.create(i, playerInventory, createAccess(playerEntity)), title)))
                 .register();
     }
 
@@ -140,8 +140,10 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
             new QuickOpenableRegistry.Builder()
                     .setItem(ShulkerBoxBlock.class)
                     .supportsBundleing(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            new ShulkerBoxMenu(i, player.getInventory(), new ItemStackInventory(stack, 27)), stack.getComponents().has(DataComponents.CUSTOM_NAME) ? stack.getHoverName() : Component.translatable("container.shulkerBox")))))
+                    .setOpenAction(((player, stack) ->
+                            player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
+                                    new ShulkerBoxMenu(i, player.getInventory(), new ItemStackInventory(stack, 27)),
+                                    stack.getComponents().has(DataComponents.CUSTOM_NAME) ? stack.getHoverName() : Component.translatable("container.shulkerBox")))))
                     .register();
 
         if (getConfig().quickEChest)
@@ -149,25 +151,25 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
                     .setItem(EnderChestBlock.class)
                     .supportsBundleing(true)
                     .ignoreSingleStackCheck(true)
-                    .setOpenAction(((player, stack) -> player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
-                            ChestMenu.threeRows(i, playerInventory, player.getEnderChestInventory()), Component.translatable("container.enderchest")))))
+                    .setOpenAction(((player, stack) ->
+                            player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
+                                    ChestMenu.threeRows(i, playerInventory, player.getEnderChestInventory()), Component.translatable("container.enderchest")))))
                     .register();
 
-        registerMenuBlock(getConfig().quickCraftingTables, CraftingTableBlock.class,
-                Component.translatable("container.crafting"), CraftingMenu::new);
-        registerMenuBlock(getConfig().quickStonecutter, StonecutterBlock.class,
-                Component.translatable("container.stonecutter"), StonecutterMenu::new);
-        registerMenuBlock(getConfig().quickAnvil, AnvilBlock.class,
-                Component.translatable("container.repair"), AnvilMenu::new);
-        registerMenuBlock(getConfig().quickGrindstone, GrindstoneBlock.class,
-                Component.translatable("container.grindstone_title"), GrindstoneMenu::new);
-        registerMenuBlock(getConfig().quickSmithingTable, SmithingTableBlock.class,
-                Component.translatable("container.upgrade"), SmithingMenu::new);
-        registerMenuBlock(getConfig().quickLoom, LoomBlock.class,
-                Component.translatable("container.loom"), LoomMenu::new);
+        registerMenuBlock(getConfig().quickCraftingTables,  CraftingTableBlock.class,
+                Component.translatable("container.crafting"),           CraftingMenu::new);
+        registerMenuBlock(getConfig().quickStonecutter,     StonecutterBlock.class,
+                Component.translatable("container.stonecutter"),        StonecutterMenu::new);
+        registerMenuBlock(getConfig().quickAnvil,           AnvilBlock.class,
+                Component.translatable("container.repair"),             AnvilMenu::new);
+        registerMenuBlock(getConfig().quickGrindstone,      GrindstoneBlock.class,
+                Component.translatable("container.grindstone_title"),   GrindstoneMenu::new);
+        registerMenuBlock(getConfig().quickSmithingTable,   SmithingTableBlock.class,
+                Component.translatable("container.upgrade"),            SmithingMenu::new);
+        registerMenuBlock(getConfig().quickLoom,            LoomBlock.class,
+                Component.translatable("container.loom"),               LoomMenu::new);
 
-        //#if MC >= 26.1
-        //#else
+        //#if MC < 26.1
         if (ModUtils.isModLoad(ModIds.reinfshulker) && QuickShulkerMod.getConfig().quickShulkerBox) {
             ReinfshulkerOpenableRegistry.registerProviders();
         }

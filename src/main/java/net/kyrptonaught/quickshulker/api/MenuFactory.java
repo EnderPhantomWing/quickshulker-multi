@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.interfaces;
+package net.kyrptonaught.quickshulker.api;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
