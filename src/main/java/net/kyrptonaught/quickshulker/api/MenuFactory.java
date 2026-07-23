@@ -25,28 +25,12 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package net.kyrptonaught.quickshulker.api;
 
-import lib.blue.endless.jankson.JsonElement;
-import lib.blue.endless.jankson.api.DeserializationException;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 
-import java.lang.reflect.Field;
-
-public interface CustomSerializable {
-
-    default JsonElement toJson(CustomMarshaller m) {
-        return m.serializeNonCustom(this);
-    }
-
-    default CustomSerializable fromJson(CustomMarshaller m, JsonElement obj, Class<CustomSerializable> clazz) throws DeserializationException {
-        return m.marshallNonCustom(clazz, obj, false);
-    }
-
-    default boolean shouldSerializeField(Field field) {
-        return shouldSerializeField(field.getName());
-    }
-
-    default boolean shouldSerializeField(String field) {
-        return true;
-    }
+public interface MenuFactory {
+    AbstractContainerMenu create(int syncId, Inventory playerInventory, ContainerLevelAccess access);
 }

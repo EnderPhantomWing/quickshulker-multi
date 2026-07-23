@@ -27,7 +27,7 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import lib.blue.endless.jankson.Jankson;
 
 import java.io.InputStream;
 

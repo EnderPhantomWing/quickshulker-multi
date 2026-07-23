@@ -62,13 +62,17 @@ public class QuickShulkerModClient implements ClientModInitializer {
         KeyBindingRegister.register();
 
         PayloadTypeRegistry.playC2S().register(OpenInventoryPacket.OPEN_INV_ID, OpenInventoryPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(OpenInventoryPacket.OPEN_INV_ID, (payload, context) -> context.client().setScreen(new InventoryScreen(context.player())));
+        ClientPlayNetworking.registerGlobalReceiver(OpenInventoryPacket.OPEN_INV_ID, (payload, context) ->
+                context.client().setScreen(new InventoryScreen(context.player())));
 
         PayloadTypeRegistry.playC2S().register(EnderChestS2CSyncPacket.S2CEChestContentPacket.S2C_ECHEST_CONTENT_PACKET_ID, EnderChestS2CSyncPacket.S2CEChestContentPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(EnderChestS2CSyncPacket.S2CEChestContentPacket.S2C_ECHEST_CONTENT_PACKET_ID, (payload, context) -> context.client().execute(() -> EnderChestSyncHandler.setEnderChestContent(context.player(), payload.itemStacks())));
+        ClientPlayNetworking.registerGlobalReceiver(EnderChestS2CSyncPacket.S2CEChestContentPacket.S2C_ECHEST_CONTENT_PACKET_ID, (payload, context) ->
+                context.client().execute(() ->
+                        EnderChestSyncHandler.setEnderChestContent(context.player(), payload.itemStacks())));
 
         PayloadTypeRegistry.playC2S().register(EnderChestS2CSyncPacket.S2CEChestSlotPacket.S2C_ECHEST_SLOT_PACKET_ID, EnderChestS2CSyncPacket.S2CEChestSlotPacket.CODEC);
-        ClientPlayNetworking.registerGlobalReceiver(EnderChestS2CSyncPacket.S2CEChestSlotPacket.S2C_ECHEST_SLOT_PACKET_ID, (payload, context) -> context.client().execute(() -> {
+        ClientPlayNetworking.registerGlobalReceiver(EnderChestS2CSyncPacket.S2CEChestSlotPacket.S2C_ECHEST_SLOT_PACKET_ID, (payload, context) ->
+                context.client().execute(() -> {
             PlayerEnderChestContainer enderChestInventory = context.player().getEnderChestInventory();
             enderChestInventory.setItem(payload.slotId(), payload.itemStack());
         }));

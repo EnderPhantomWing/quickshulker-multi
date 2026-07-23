@@ -1,10 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019 kyrptonaught
- * Copyright (c) 2024 Haocen2004
- * Copyright (c) 2025 MoRanpcy
- * Copyright (c) 2025 EnderPhantomWing
+ * Copyright (c) 2018-2020 Falkreon (Isaac Ellingson)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,28 +22,35 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package lib.blue.endless.jankson;
 
-import lib.blue.endless.jankson.JsonElement;
-import lib.blue.endless.jankson.api.DeserializationException;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import java.lang.reflect.Field;
-
-public interface CustomSerializable {
-
-    default JsonElement toJson(CustomMarshaller m) {
-        return m.serializeNonCustom(this);
-    }
-
-    default CustomSerializable fromJson(CustomMarshaller m, JsonElement obj, Class<CustomSerializable> clazz) throws DeserializationException {
-        return m.marshallNonCustom(clazz, obj, false);
-    }
-
-    default boolean shouldSerializeField(Field field) {
-        return shouldSerializeField(field.getName());
-    }
-
-    default boolean shouldSerializeField(String field) {
-        return true;
-    }
+/** Tagging class for Json objects, arrays, and primitives */
+public abstract class JsonElement implements Cloneable {
+	public abstract JsonElement clone();
+	public String toJson() {
+		return toJson(false, false, 0);
+	}
+	public String toJson(boolean comments, boolean newlines) {
+		return toJson(comments, newlines, 0);
+	}
+	public abstract String toJson(boolean comments, boolean newlines, int depth);
+	public String toJson(JsonGrammar grammar, int depth) {
+		StringWriter w = new StringWriter();
+		try {
+			toJson(w, grammar, depth);
+			w.flush();
+			return w.toString();
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+	public String toJson(JsonGrammar grammar) {
+		return toJson(grammar, 0);
+	}
+	
+	public abstract void toJson(Writer writer, JsonGrammar grammar, int depth) throws IOException;
 }

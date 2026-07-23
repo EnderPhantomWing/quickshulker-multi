@@ -40,6 +40,8 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:${prop("fabric_api_version")}")
     if (mcVersionInt < 260300) {
         implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
+    } else {
+        implementation("com.github.EnderPhantomWing:modmenu:${prop("modmenu_dev_version")}")
     }
 
     implementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }

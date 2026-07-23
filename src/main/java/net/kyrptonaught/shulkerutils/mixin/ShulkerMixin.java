@@ -33,10 +33,8 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ShulkerBoxBlock.class)
 public class ShulkerMixin implements UpgradableShulker {
-
     @Override
     public int QS$getInventorySize() {
         return 27;
     }
-
 }
