@@ -37,7 +37,6 @@ public abstract class JsonElement implements Cloneable {
 	public String toJson(boolean comments, boolean newlines) {
 		return toJson(comments, newlines, 0);
 	}
-	@Deprecated
 	public abstract String toJson(boolean comments, boolean newlines, int depth);
 	public String toJson(JsonGrammar grammar, int depth) {
 		StringWriter w = new StringWriter();

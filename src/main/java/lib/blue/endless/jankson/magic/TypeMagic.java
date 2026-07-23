@@ -194,7 +194,7 @@ public class TypeMagic {
 		}
 		
 		try {
-			boolean available = noArg.isAccessible();
+			boolean available = noArg.canAccess(noArg);
 			if (!available) noArg.setAccessible(true);
 			U u = noArg.newInstance();
 			if (!available) noArg.setAccessible(false); //restore accessibility
