@@ -27,13 +27,13 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
-import quickshulker.blue.endless.jankson.Jankson;
+import lib.blue.endless.jankson.Jankson;
 
 import java.lang.reflect.Field;
 
 public class CustomJankson {
     public static Jankson.Builder customJanksonBuilder() {
-        return new Jankson.Builder(true);
+        return new Jankson.Builder();
     }
 
     public static Boolean shouldSerializeField(Object t, Field field) {
