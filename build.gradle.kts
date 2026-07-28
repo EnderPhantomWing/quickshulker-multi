@@ -1,9 +1,10 @@
 plugins {
     id("maven-publish")
     id("com.github.hierynomus.license") version "0.16.1" apply false
-    id("net.fabricmc.fabric-loom") version "1.17.14" apply false
-    id("net.fabricmc.fabric-loom-remap") version "1.17.14" apply false
+    id("net.fabricmc.fabric-loom") version "1.17.17" apply false
+    id("net.fabricmc.fabric-loom-remap") version "1.17.17" apply false
     id("com.replaymod.preprocess") version "c5abb4fb12"
+    id("org.glavo.gradle-wrapper-neo") version "0.2.0"
 }
 
 preprocess {
