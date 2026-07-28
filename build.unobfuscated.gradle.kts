@@ -21,6 +21,7 @@ repositories {
             }
         }
     }
+    strictMaven("https://maven.fallenbreath.me/releases")
     strictMaven("https://maven.fabricmc.net")
     strictMaven("https://maven.shedaniel.me/")
     strictMaven("https://raw.githubusercontent.com/Aton-Kish/mcmod/maven")
@@ -43,6 +44,7 @@ dependencies {
         implementation("com.github.EnderPhantomWing:modmenu:${prop("modmenu_dev_version")}")
     }
 
+    implementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
 
