@@ -21,7 +21,6 @@ repositories {
 			}
 		}
 	}
-	strictMaven("https://maven.fallenbreath.me/releases")
 	strictMaven("https://maven.fabricmc.net")
 	strictMaven("https://maven.shedaniel.me/")
 	strictMaven("https://raw.githubusercontent.com/Aton-Kish/mcmod/maven")
@@ -43,7 +42,6 @@ dependencies {
 	modImplementation("curse.maven:reinforced-shulker-boxes-529874:${prop("reinforced_shulker_boxes_version")}")
 	modImplementation("atonkish.reinfcore:reinforced-core:${prop("reinforced_core_version")}")
 
-	modImplementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }
 	compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
 
