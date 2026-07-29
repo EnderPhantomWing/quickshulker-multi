@@ -79,6 +79,21 @@ private fun getCommitCountNumber(workDir: File = File(".")): Int? {
     }
 }
 
+private fun getCommitHash(workDir: File = File(".")): String? {
+    return try {
+        val process = ProcessBuilder("git", "rev-parse", "--short", "HEAD")
+            .directory(workDir)
+            .redirectErrorStream(true)
+            .start()
+        val output = process.inputStream.bufferedReader().readText().trim()
+        val exitCode = process.waitFor()
+        if (exitCode == 0) output else null
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+
 private fun getCurrentGitBranch(workDir: File = File(".")): String? {
     return try {
         val process = ProcessBuilder("git", "rev-parse", "--abbrev-ref", "HEAD")
@@ -102,9 +117,9 @@ private fun getCurrentGitBranch(workDir: File = File(".")): String? {
 private fun getFullProjectVersion(mcVersion: String?, modVersion: String?): String {
     val timestampMillis = System.currentTimeMillis()
     val commitCount     = getCommitCountNumber()
+    val commitHash      = getCommitHash()
     val currentBranch   = getCurrentGitBranch()
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
-    val commitHash      = System.getenv("COMMIT_HASH")
     val isRelease       = System.getenv("BUILD_RELEASE")?.toBoolean() == true || System.getenv("IS_THIS_RELEASE")   ?.toBoolean() == true
     val isPR            = System.getenv("BUILD_PR")     ?.toBoolean() == true || System.getenv("IS_THIS_PR")        ?.toBoolean() == true
     val isCI            = System.getenv("BUILD_CI")     ?.toBoolean() == true || System.getenv("IS_THIS_CI")        ?.toBoolean() == true || System.getenv("GITHUB_ACTIONS") == "true"
