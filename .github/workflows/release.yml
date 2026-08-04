@@ -102,6 +102,7 @@ jobs:
     needs:
       - validate_release
     with:
+      build_type: release
       download_dependencies: true
       target_subproject: ${{ github.event.inputs.target_subproject }}
 

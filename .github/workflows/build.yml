@@ -2,6 +2,10 @@ name: _step.build
 on:
   workflow_call:
     inputs:
+      build_type:
+        type: string
+        required: false
+        default: snapshot
       target_subproject:
         description: See release.yml, leave it empty to build all
         type: string
@@ -17,6 +21,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'SKIP') }}
+    env:
+      BUILD_TYPE: ${{ inputs.build_type }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
