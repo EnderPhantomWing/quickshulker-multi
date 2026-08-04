@@ -10,3 +10,5 @@ env:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+    with:
+      build_type: snapshot
