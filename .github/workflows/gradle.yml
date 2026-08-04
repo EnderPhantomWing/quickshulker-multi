@@ -5,10 +5,10 @@ on:
     branches: [ '**' ] # stop build tag commits
 
 env:
-  IS_THIS_CI: true
+  BUILD_TYPE: snapshot
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      dev_build: true
+      build_type: snapshot

@@ -2,10 +2,6 @@ name: _step.publish
 on:
   workflow_call:
     inputs:
-      release:
-        type: boolean
-        required: false
-        default: false
       target_subproject:
         description: See release.yml, leave it empty to build all
         type: string
@@ -58,7 +54,6 @@ jobs:
         run: ./gradlew dependencies --stacktrace
         env:
           BUILD_ID: ${{ github.run_number }}
-          BUILD_RELEASE: ${{ inputs.release }}
 
       - name: Publish artifacts
         run: |
@@ -72,6 +67,5 @@ jobs:
           fi
         env:
           BUILD_ID: ${{ github.run_number }}
-          BUILD_RELEASE: ${{ inputs.release }}
           GH_USERNAME: ${{ secrets.GH_USERNAME }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

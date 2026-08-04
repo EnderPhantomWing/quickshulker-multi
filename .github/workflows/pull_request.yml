@@ -4,10 +4,10 @@ on:
   pull_request:
 
 env:
-  IS_THIS_PR: true
+  BUILD_TYPE: pr
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      pr_build: true
+      build_type: pr

@@ -38,11 +38,7 @@ dependencies {
 
     // Implementation Mods
     implementation("net.fabricmc.fabric-api:fabric-api:${prop("fabric_api_version")}")
-    if (mcVersionInt < 260300) {
-        implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
-    } else {
-        implementation("com.github.EnderPhantomWing:modmenu:${prop("modmenu_dev_version")}")
-    }
+    implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
 
     implementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
@@ -54,29 +50,22 @@ if (System.getenv("JITPACK") == "true") {
     base.archivesName.set(modArchivesBaseName)
 }
 
-tasks.named<JavaExec>("runClient") {
-    workingDir = file("$rootDir/run/client")
-}
-
-tasks.named<JavaExec>("runServer") {
-    workingDir = file("$rootDir/run/server")
-}
-
 loom {
     accessWidenerPath.set(file("quickshulker.accesswidener"))
 
     val commonVmArgs = listOf("-Dmixin.debug.export=true", "-Dmixin.debug.verbose=true", "-Dmixin.env.remapRefMap=true")
     val commonProgramArgs = listOf("--width", "1280", "--height", "720", "--username", "ShulkerDev")
 
+    @Suppress("Deprecation")
     runs {
         named("client") {
             generateRunConfig.set(true)
             jvmArguments.set(commonVmArgs)
             programArguments.set(commonProgramArgs)
-            runDirectory.dir("../../run/client")
+            runDir("../../run/client")
         }
         named("server") {
-            runDirectory.dir("../../run/server")
+            runDir("../../run/server")
         }
     }
 }
