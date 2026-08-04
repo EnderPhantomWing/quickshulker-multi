@@ -38,11 +38,7 @@ dependencies {
 
     // Implementation Mods
     implementation("net.fabricmc.fabric-api:fabric-api:${prop("fabric_api_version")}")
-    if (mcVersionInt < 260300) {
-        implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
-    } else {
-        implementation("com.github.EnderPhantomWing:modmenu:${prop("modmenu_dev_version")}")
-    }
+    implementation("com.terraformersmc:modmenu:${prop("modmenu_version")}")
 
     implementation("me.fallenbreath:conditional-mixin-fabric:${prop("conditionalmixin_version")}")?.let { include(it) }
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")

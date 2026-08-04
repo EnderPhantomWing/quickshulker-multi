@@ -2,18 +2,6 @@ name: _step.build
 on:
   workflow_call:
     inputs:
-      release:
-        type: boolean
-        required: false
-        default: false
-      pr_build:
-        type: boolean
-        required: false
-        default: false
-      dev_build:
-        type: boolean
-        required: false
-        default: false
       target_subproject:
         description: See release.yml, leave it empty to build all
         type: string
@@ -29,6 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'SKIP') }}
+    env:
+      BUILD_TYPE: snapshot
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -71,9 +61,6 @@ jobs:
         run: ./gradlew dependencies --stacktrace
         env:
           BUILD_ID: ${{ github.run_number }}
-          BUILD_RELEASE: ${{ inputs.release }}
-          BUILD_PR: ${{ inputs.pr_build }}
-          BUILD_CI: ${{ inputs.dev_build }}
 
       - name: Build
         run: |
@@ -87,9 +74,6 @@ jobs:
           fi
         env:
           BUILD_ID: ${{ github.run_number }}
-          BUILD_RELEASE: ${{ inputs.release }}
-          BUILD_PR: ${{ inputs.pr_build }}
-          BUILD_DEV: ${{ inputs.dev_build }}
 
       - name: Upload artifacts (summary part need)
         uses: actions/upload-artifact@v7
