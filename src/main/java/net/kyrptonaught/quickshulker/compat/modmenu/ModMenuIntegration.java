@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-//#if MC < 26.3
 package net.kyrptonaught.quickshulker.compat.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -41,5 +40,4 @@ public class ModMenuIntegration implements ModMenuApi {
         return ModConfigMenu::getModConfigMenu;
     }
 }
-//#endif
 //public class ModMenuIntegration {}
