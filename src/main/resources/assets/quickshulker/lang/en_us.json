@@ -27,14 +27,16 @@
   "key.quickshulker.config.quickGrindstone": "Enable opening Grindstone",
   "key.quickshulker.config.quickSmithingTable": "Enable opening Smithing Table",
   "key.quickshulker.config.quickLoom": "Enable opening Loom",
+
   "key.kyrptconfig.config.restartRequired": "Restart is Required",
-  "key.quickshulker.config.savedValue": "Saved Value: %s",
-  "key.quickshulker.config.keybindinsConflict": "\nThis key is also used for: %s",
+  "key.kyrptconfig.config.savedValue": "Saved Value: %s",
+  "key.kyrptconfig.config.keybindinsConflict": "\nThis key is also used for: %s",
   "key.kyrptconfig.config.exit": "Exit",
   "key.kyrptconfig.config.saveExit": "Save & Exit",
   "key.kyrptconfig.config.true": "True",
   "key.kyrptconfig.config.false": "False",
   "key.kyrptconfig.config.reset": "Reset",
+
   "modmenu.a": "Original author's homepage",
   "modmenu.b": "Original author's sources",
   "modmenu.c": "Haocen2004's fork sources",

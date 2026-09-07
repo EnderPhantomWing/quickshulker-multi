@@ -27,14 +27,16 @@
   "key.quickshulker.config.quickGrindstone": "啟用打開砂輪",
   "key.quickshulker.config.quickSmithingTable": "啟用打開鍛造台",
   "key.quickshulker.config.quickLoom": "啟用打開制圖台",
+
   "key.kyrptconfig.config.restartRequired": "重啓後生效",
-  "key.quickshulker.config.savedValue": "保存的值：%s",
-  "key.quickshulker.config.keybindinsConflict": "\n該按鍵也用於：%s",
+  "key.kyrptconfig.config.savedValue": "保存的值：%s",
+  "key.kyrptconfig.config.keybindinsConflict": "\n該按鍵也用於：%s",
   "key.kyrptconfig.config.exit": "退出",
   "key.kyrptconfig.config.saveExit": "保存并退出",
   "key.kyrptconfig.config.true": "啟用",
   "key.kyrptconfig.config.false": "禁用",
   "key.kyrptconfig.config.reset": "重置",
+
   "modmenu.a": "原作者主頁",
   "modmenu.b": "原作者源碼",
   "modmenu.c": "Haocen2004分支源碼",
