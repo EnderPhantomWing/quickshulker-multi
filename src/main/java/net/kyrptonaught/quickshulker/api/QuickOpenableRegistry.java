@@ -27,6 +27,7 @@
 
 package net.kyrptonaught.quickshulker.api;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BlockItem;
@@ -102,6 +103,11 @@ public class QuickOpenableRegistry {
 
         public Builder setOpenAction(BiConsumer<Player, ItemStack> openAction) {
             qsdata.openConsumer = openAction;
+            return this;
+        }
+
+        public Builder getSound(BiFunction<ItemStack, Boolean, SoundEvent> getSound){
+            qsdata.soundGetter = getSound;
             return this;
         }
 

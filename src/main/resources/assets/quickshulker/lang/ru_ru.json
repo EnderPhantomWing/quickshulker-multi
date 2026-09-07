@@ -6,6 +6,7 @@
   "key.quickshulker.config.keybinding": "Горячая клавиша открытия предмета",
   "key.quickshulker.config.keybind": "Открыть предмет в руке с помощью горячей клавиши",
   "key.quickshulker.config.openSettingGui": "Открыть интерфейс настроек",
+  "key.quickshulker.config.playSound": "Play a sound when the item is opened or closed.",
   "key.quickshulker.config.rightClick": "Открыть предмет в руке правой кнопкой мыши",
   "key.quickshulker.config.keybindInInv": "Открыть предмет в инвентаре с помощью горячей клавиши",
   "key.quickshulker.config.rightClickInInv": "Открыть предмет в инвентаре правой кнопкой мыши",

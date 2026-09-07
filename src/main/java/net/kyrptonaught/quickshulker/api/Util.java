@@ -29,6 +29,8 @@ package net.kyrptonaught.quickshulker.api;
 
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -84,6 +86,29 @@ public class Util {
             return qsData.canOpenInHand;
         }
         return false;
+    }
+
+    public static void playOpenSound(Player player, int selectedInvIndex){
+        ItemStack stack = player.getInventory().getItem(selectedInvIndex);
+        QuickShulkerData qsData = QuickOpenableRegistry.getQuickie(stack.getItem());
+        if (qsData != null) {
+            playSound(player, qsData.getSound(stack, true));
+        }
+    }
+
+    public static void playCloseSound(Player player, int selectedInvIndex){
+        ItemStack stack = player.getInventory().getItem(selectedInvIndex);
+        QuickShulkerData qsData = QuickOpenableRegistry.getQuickie(stack.getItem());
+        if (qsData != null) {
+            playSound(player, qsData.getSound(stack, false));
+        }
+    }
+
+    public static void playSound(Player player, SoundEvent sound){
+        if(sound != null){
+//            player.level().playSound(null, player.blockPosition(), sound, player.getSoundSource());
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.BLOCKS);
+        }
     }
 
     public static boolean areItemsEqual(ItemStack stack1, ItemStack stack2) {

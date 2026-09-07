@@ -6,6 +6,7 @@
   "key.quickshulker.config.keybinding": "打開物品快捷鍵",
   "key.quickshulker.config.keybind": "使用快捷鍵打開手持的物品",
   "key.quickshulker.config.openSettingGui": "打開配置界面",
+  "key.quickshulker.config.playSound": "Play a sound when the item is opened or closed.",
   "key.quickshulker.config.rightClick": "鼠標右擊打開手持的物品",
   "key.quickshulker.config.keybindInInv": "使用快捷鍵打開揹包內的物品",
   "key.quickshulker.config.rightClickInInv": "鼠標右擊打開揹包內的物品",

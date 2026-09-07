@@ -6,6 +6,7 @@
   "key.quickshulker.config.keybinding": "아이템 열기 단축키",
   "key.quickshulker.config.keybind": "단축키로 손에 든 아이템 열기",
   "key.quickshulker.config.openSettingGui": "설정 화면 열기",
+  "key.quickshulker.config.playSound": "Play a sound when the item is opened or closed.",
   "key.quickshulker.config.rightClick": "마우스 오른쪽 클릭으로 손에 든 아이템 열기",
   "key.quickshulker.config.keybindInInv": "단축키로 인벤토리 내 아이템 열기",
   "key.quickshulker.config.rightClickInInv": "마우스 오른쪽 클릭으로 인벤토리 내 아이템 열기",

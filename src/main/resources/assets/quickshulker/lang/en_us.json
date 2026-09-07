@@ -7,6 +7,7 @@
   "key.quickshulker.config.keybinding": "Keybind for open item",
   "key.quickshulker.config.keybind": "Keybinding while holding item",
   "key.quickshulker.config.openSettingGui": "Open setting GUI",
+  "key.quickshulker.config.playSound": "Play a sound when the item is opened or closed.",
   "key.quickshulker.config.rightClick": "Right Click while holding item",
   "key.quickshulker.config.keybindInInv": "Keybind while hovering in Inventory",
   "key.quickshulker.config.rightClickInInv": "Right click while hovering in Inventory",

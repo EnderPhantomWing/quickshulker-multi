@@ -47,6 +47,8 @@ public class ConfigOptions implements AbstractConfigFile {
     @Comment("Right Clicking a shulker in your inv opens it")
     public boolean rightClickInv = true;
 
+    @Comment("Play sound when shulker is opened or closed")
+    public boolean playSound = true;
     @Comment("Right Clicking the opened shulker in your inv closes it")
     public boolean rightClickClose = false;
     @Comment("Right Clicking a shulker with an item inserts it")
