@@ -112,7 +112,7 @@ jobs:
               cp -p "$jar" mod-jars/
           done
           ls -l mod-jars/
-          sha256sum mod-jars/
+          sha256sum mod-jars/*
 
       - name: Upload mod jars
         uses: actions/upload-artifact@v7
