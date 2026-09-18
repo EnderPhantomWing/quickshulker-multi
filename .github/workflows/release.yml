@@ -104,15 +104,8 @@ jobs:
     with:
       build_type: release
       download_dependencies: true
+      publish: true
       target_subproject: ${{ github.event.inputs.target_subproject }}
-
-  publish:
-    uses: ./.github/workflows/publish.yml
-    secrets: inherit
-    needs:
-      - build
-    with:
-      download_dependencies: true
 
   release:
     continue-on-error: true
@@ -167,6 +160,11 @@ jobs:
               echo Unknown github event name $GITHUB_EVENT_NAME
               exit 1
           fi
+
+      - name: Get repo info
+        id: properties_repo
+        run: |
+          echo "mod_version=$(git describe --tags --always --abbrev=0 origin/mojmaps/preprocessor)" >> "$GITHUB_OUTPUT"
 
       - name: Read common properties
         id: properties_g
@@ -235,8 +233,8 @@ jobs:
 
           files: ${{ steps.file_info.outputs.path }}
 
-          name: ${{ format('{0} v{1} for mc{2}', steps.properties_g.outputs.mod_name, steps.properties_g.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
-          version: ${{ format('v{1}-mc{0}', steps.properties_v.outputs.minecraft_version, steps.properties_g.outputs.mod_version) }}
+          name: ${{ format('{0} v{1} for mc{2}', steps.properties_g.outputs.mod_name, steps.properties_repo.outputs.mod_version, steps.properties_v.outputs.minecraft_version) }}
+          version: ${{ format('v{1}-mc{0}', steps.properties_v.outputs.minecraft_version, steps.properties_repo.outputs.mod_version) }}
           version-type: release
 
           loaders: fabric
