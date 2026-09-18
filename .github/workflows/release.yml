@@ -125,6 +125,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Display context
         run: |
@@ -164,7 +167,9 @@ jobs:
       - name: Get repo info
         id: properties_repo
         run: |
-          echo "mod_version=$(git describe --tags --always --abbrev=0 origin/mojmaps/preprocessor)" >> "$GITHUB_OUTPUT"
+          MOD_VERSION=$(git describe --tags --abbrev=0 origin/mojmaps/preprocessor)
+          echo "MOD_VERSION=$MOD_VERSION"
+          echo "mod_version=$(git describe --tags --abbrev=0 origin/mojmaps/preprocessor)" >> "$GITHUB_OUTPUT"
 
       - name: Read common properties
         id: properties_g
