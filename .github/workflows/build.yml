@@ -12,7 +12,12 @@ on:
         required: false
         default: ''
       download_dependencies:
-        description: Download dependencies (Release)
+        description: Download dependencies
+        type: boolean
+        required: false
+        default: false
+      publish:
+        description: Publish mods to Github Packages (Only Release)
         type: boolean
         required: false
         default: false
@@ -68,13 +73,27 @@ jobs:
 
       - name: Build
         run: |
-          if [ -z "${{ inputs.target_subproject }}" ]; then
-              echo "Building all subprojects"
-              ./gradlew build --stacktrace
+          if [ "${{ inputs.publish }}" = "true" ]; then
+            if [ -z "${{ inputs.target_subproject }}" ]; then
+                echo "Publishing all subprojects"
+                ./gradlew build publish --stacktrace
+            else
+                args=$(echo "${{ inputs.target_subproject }}" \
+                        | tr ',' '\n' \
+                        | sed 's/.*/&:build &:publish/' \
+                        | paste -sd ' ')
+                echo "Publishing with arguments=$args"
+                ./gradlew $args --stacktrace
+            fi
           else
-              args=$(echo "${{ inputs.target_subproject }}" | tr ',' '\n' | sed 's/$/:build/' | paste -sd ' ')
-              echo "Building with arguments=$args"
-              ./gradlew $args --stacktrace
+            if [ -z "${{ inputs.target_subproject }}" ]; then
+                echo "Building all subprojects"
+                ./gradlew build --stacktrace
+            else
+                args=$(echo "${{ inputs.target_subproject }}" | tr ',' '\n' | sed 's/$/:build/' | paste -sd ' ')
+                echo "Building with arguments=$args"
+                ./gradlew $args --stacktrace
+            fi
           fi
         env:
           BUILD_ID: ${{ github.run_number }}
@@ -92,7 +111,8 @@ jobs:
           for jar in versions/*/build/libs/!(*-@(dev|sources|shadow)).jar; do
               cp -p "$jar" mod-jars/
           done
-          ls -l mod-jars
+          ls -l mod-jars/
+          sha256sum mod-jars/*
 
       - name: Upload mod jars
         uses: actions/upload-artifact@v7
