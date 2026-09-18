@@ -44,6 +44,7 @@ import net.kyrptonaught.quickshulker.network.EnderChestS2CSyncPacket;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
 import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
 import net.kyrptonaught.quickshulker.network.QuickBundlePacket;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -140,6 +141,7 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
             new QuickOpenableRegistry.Builder()
                     .setItem(ShulkerBoxBlock.class)
                     .supportsBundleing(true)
+                    .getSound((stack, isOpenSound) -> isOpenSound ? SoundEvents.SHULKER_BOX_OPEN : SoundEvents.SHULKER_BOX_CLOSE)
                     .setOpenAction(((player, stack) ->
                             player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->
                                     new ShulkerBoxMenu(i, player.getInventory(), new ItemStackInventory(stack, 27)),
@@ -150,6 +152,7 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
             new QuickOpenableRegistry.Builder(new QuickShulkerData.QuickEnderData())
                     .setItem(EnderChestBlock.class)
                     .supportsBundleing(true)
+                    .getSound((stack, isOpenSound) -> isOpenSound ? SoundEvents.ENDER_CHEST_OPEN : SoundEvents.ENDER_CHEST_CLOSE)
                     .ignoreSingleStackCheck(true)
                     .setOpenAction(((player, stack) ->
                             player.openMenu(new SimpleMenuProvider((i, playerInventory, playerEntity) ->

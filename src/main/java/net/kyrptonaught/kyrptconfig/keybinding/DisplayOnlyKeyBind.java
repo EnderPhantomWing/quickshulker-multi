@@ -54,6 +54,10 @@ public class DisplayOnlyKeyBind extends KeyMapping {
     //#endif
         super(translationKey, customKeyBinding.getDefaultKey().getType(), customKeyBinding.getDefaultKey().getValue(), category);
         this.customKeyBinding = customKeyBinding;
+        this.customKeyBinding.setConsumer(key -> {
+            if(!this.key.equals(customKeyBinding.getKeybinding().orElse(null)))
+                this.updateSetKey();
+        });
         this.keySet = keySet;
         updateSetKey();
     }
@@ -75,19 +79,16 @@ public class DisplayOnlyKeyBind extends KeyMapping {
     //#else
     //$$ public @NotNull String getCategory() {
     //#endif
-        updateSetKey();
         return super.getCategory();
     }
 
     @Override
     public @NotNull String getName() {
-        updateSetKey();
         return super.getName();
     }
 
     @Override
     public InputConstants.@NotNull Key getDefaultKey() {
-        updateSetKey();
         return super.getDefaultKey();
     }
 }

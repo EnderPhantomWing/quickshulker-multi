@@ -42,9 +42,11 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class CustomKeyBinding implements CustomSerializable {
     private final String MOD_ID;
+    protected Consumer<CustomKeyBinding> keyUpdate;
     public boolean unknownIsActivated = false;
     public String rawKey = "";
     public String defaultKey = "";
@@ -69,6 +71,7 @@ public class CustomKeyBinding implements CustomSerializable {
 
     public CustomKeyBinding setRaw(String key) {
         rawKey = key;
+        this.runConsumer(this);
         doParseKey = true;
         holding = false;
         return this;
@@ -143,6 +146,16 @@ public class CustomKeyBinding implements CustomSerializable {
         } catch (IllegalArgumentException e) {
             System.out.println(MOD_ID + ": unknown default key entered");
             return InputConstants.UNKNOWN;
+        }
+    }
+
+    public void setConsumer(Consumer<CustomKeyBinding> keyUpdate){
+        this.keyUpdate = keyUpdate;
+    }
+
+    public void runConsumer(CustomKeyBinding key){
+        if(this.keyUpdate != null){
+            keyUpdate.accept(this);
         }
     }
 

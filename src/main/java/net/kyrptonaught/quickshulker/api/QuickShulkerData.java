@@ -29,6 +29,7 @@ package net.kyrptonaught.quickshulker.api;
 
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.shulkerutils.ShulkerUtils;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -42,6 +43,7 @@ public class QuickShulkerData {
     public boolean ignoreSingleStackCheck = false;
     public boolean canOpenInHand = true;
     BiFunction<Player, ItemStack, Container> bundleInvGetter;
+    BiFunction<ItemStack, Boolean, SoundEvent> soundGetter;
     CanBundleInsertItemFunction canBundleInsertItem;
 
     public QuickShulkerData() {
@@ -62,6 +64,10 @@ public class QuickShulkerData {
     public Container getInventory(Player player, ItemStack stack) {
         if (bundleInvGetter != null) return bundleInvGetter.apply(player, stack);
         return ShulkerUtils.getInventoryFromShulker(stack);
+    }
+
+    public SoundEvent getSound(ItemStack stack, boolean isOpenSound){
+        return soundGetter == null ? null : soundGetter.apply(stack, isOpenSound);
     }
 
     public boolean canBundleInsertItem(Player player, Container inventory, ItemStack hostStack, ItemStack insertStack) {
