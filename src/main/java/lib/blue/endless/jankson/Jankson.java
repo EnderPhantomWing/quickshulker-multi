@@ -382,7 +382,7 @@ public class Jankson {
 	
 	public static class Builder {
 		@SuppressWarnings("deprecation")
-        MarshallerImpl marshaller = new MarshallerImpl();
+        MarshallerImpl marshaller = new CustomMarshaller();
 		boolean allowBareRootObject = false;
 
 		/**

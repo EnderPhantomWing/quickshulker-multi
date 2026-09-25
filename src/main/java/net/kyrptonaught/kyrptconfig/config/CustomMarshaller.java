@@ -30,6 +30,7 @@ package net.kyrptonaught.kyrptconfig.config;
 import lib.blue.endless.jankson.JsonElement;
 import lib.blue.endless.jankson.api.DeserializationException;
 import lib.blue.endless.jankson.impl.MarshallerImpl;
+import lib.blue.endless.jankson.magic.TypeMagic;
 
 public class CustomMarshaller extends MarshallerImpl {
 
@@ -49,6 +50,22 @@ public class CustomMarshaller extends MarshallerImpl {
     }
 
     public <T> T marshallNonCustom(Class<T> clazz, JsonElement elem, boolean failFast) throws DeserializationException {
+        return super.marshall(clazz, elem, failFast);
+    }
+
+    /**
+     * Routes {@link CustomSerializable} types through their own (de)serialization instead of letting Jankson reflect
+     * over their fields. This matters on a dedicated server: reflecting over e.g. CustomKeyBinding would try to resolve
+     * its client-only parsedKey field and blow up with NoClassDefFoundError.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T marshall(Class<T> clazz, JsonElement elem, boolean failFast) throws DeserializationException {
+        if (CustomSerializable.class.isAssignableFrom(clazz)) {
+            T result = TypeMagic.createAndCast(clazz, failFast);
+            if (result == null) return null;
+            return (T) marshallCustomSerializable((Class<CustomSerializable>) clazz, (CustomSerializable) result, elem);
+        }
         return super.marshall(clazz, elem, failFast);
     }
 }
