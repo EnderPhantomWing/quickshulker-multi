@@ -3,14 +3,14 @@
   "package": "net.kyrptonaught.quickshulker.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
-    "minecraft.AbstractContainerScreenInvoker",
-    "minecraft.AbstractContainerScreenMixin",
     "minecraft.ContainerMixin",
     "minecraft.ContainerOpenMixin",
     "minecraft.CraftingScreenHandlerMixin",
     "minecraft.ItemMixin"
   ],
   "client": [
+    "minecraft.AbstractContainerScreenInvoker",
+    "minecraft.AbstractContainerScreenMixin",
     "minecraft.CreativeSlotMixin",
     "minecraft.ScreenMixin"
   ],
