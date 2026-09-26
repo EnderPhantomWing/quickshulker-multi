@@ -50,7 +50,8 @@ val Project.mixinJavaVersion get() = "JAVA_${javaVersion}"
 val Project.fullProjectVersionName: String get() = "v$fullProjectVersion"
 val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, modVersion)
 
-private fun getModVersion(workDir: File = File(".")): String? {
+private const val DEFAULT_MOD_VERSION = "1.0.0"
+private fun getModVersion(workDir: File = File(".")): String {
     return try {
         val process = ProcessBuilder("git", "describe", "--tags", "--always", "--abbrev=0", "origin/mojmaps/preprocessor")
             .directory(workDir)
@@ -58,10 +59,10 @@ private fun getModVersion(workDir: File = File(".")): String? {
             .start()
         val output = process.inputStream.bufferedReader().readText().trim()
         val exitCode = process.waitFor()
-        if (exitCode == 0 && output.isNotEmpty()) output else null
+        if (exitCode == 0 && output.isNotEmpty()) output else DEFAULT_MOD_VERSION
     } catch (e: Exception) {
         e.printStackTrace()
-        null
+        DEFAULT_MOD_VERSION
     }
 }
 
