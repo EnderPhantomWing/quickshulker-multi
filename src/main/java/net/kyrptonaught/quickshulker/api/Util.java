@@ -60,6 +60,7 @@ public class Util {
         QuickShulkerData qsData = QuickOpenableRegistry.getQuickie(stack.getItem());
         if (qsData != null) {
             qsData.openConsumer.accept(player, stack);
+            if(QuickShulkerMod.getConfig().playSound) playSound(player, qsData.getSound(stack, true));
             ((ItemInventoryContainer) player.containerMenu).QS$setUsedSlot(playerInvIndex);
             player.containerMenu.addSlotListener(forceCloseScreenIfNotPresent(player, playerInvIndex, stack));
         }
