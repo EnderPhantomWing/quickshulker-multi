@@ -179,7 +179,7 @@ public class TypeMagic {
 		/* Using getConstructor instead of class::newInstance takes some errors we can't otherwise detect, and
 		 * instead wraps them in InvocationTargetExceptions which we *can* catch.
 		 */
-		Constructor<U> noArg = null;
+		Constructor<U> noArg;
 		try {
 			noArg = t.getConstructor();
 		} catch (Throwable ex2) {
@@ -194,7 +194,7 @@ public class TypeMagic {
 		}
 		
 		try {
-			boolean available = noArg.canAccess(noArg);
+			boolean available = noArg.canAccess(null);
 			if (!available) noArg.setAccessible(true);
 			U u = noArg.newInstance();
 			if (!available) noArg.setAccessible(false); //restore accessibility
