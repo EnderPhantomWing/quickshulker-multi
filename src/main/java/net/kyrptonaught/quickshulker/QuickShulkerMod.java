@@ -67,6 +67,8 @@ public class QuickShulkerMod implements ModInitializer, RegisterQuickShulker {
     public static final String MOD_ID = "quickshulker";
     public static ConfigManager.SingleConfigManager config = new ConfigManager.SingleConfigManager(MOD_ID, new ConfigOptions());
     public static double lastMouseX, lastMouseY;
+    /** Player-inventory index of the slot the cursor was on when the last quick-open was triggered, or -1. */
+    public static int lastCursorSlot = -1;
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static ConfigOptions getConfig() {

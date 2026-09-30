@@ -28,6 +28,7 @@
 package net.kyrptonaught.quickshulker.mixin.minecraft;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 //#if MC >= 26.1
 //$$ import net.minecraft.world.inventory.ContainerInput;
@@ -35,6 +36,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.ClickType;
 //#endif
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(AbstractContainerScreen.class)
@@ -52,4 +54,13 @@ public interface AbstractContainerScreenInvoker {
     //#else
     void QS$onMouseClick(Slot slot, int slotId, int button, ClickType actionType);
     //#endif
+
+    @Accessor("menu")
+    AbstractContainerMenu QS$getMenu();
+
+    @Accessor("leftPos")
+    int QS$getLeftPos();
+
+    @Accessor("topPos")
+    int QS$getTopPos();
 }
