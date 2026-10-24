@@ -13,6 +13,7 @@
   "key.quickshulker.config.rightClickInInv": "Right click while hovering in Inventory",
   "key.quickshulker.config.category.options": "Options",
   "key.quickshulker.config.rightClickClose": "Right click opened shulker to close",
+  "key.quickshulker.config.fillOpenedBackground": "Fill the background of an opened item with a color",
   "key.quickshulker.config.category.bundleing": "Bundling",
   "key.quickshulker.config.supportsBundlingInsert": "R-Click a shulker w/ an item to insert it",
   "key.quickshulker.config.supportsBundlingPickup": "R-Click an item w/ shulker to insert it",

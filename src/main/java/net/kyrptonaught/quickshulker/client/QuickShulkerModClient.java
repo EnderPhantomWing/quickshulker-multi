@@ -42,6 +42,8 @@ import net.kyrptonaught.quickshulker.util.EnderChestSyncHandler;
 import net.kyrptonaught.quickshulker.api.RegisterQuickShulkerClient;
 import net.kyrptonaught.quickshulker.network.EnderChestS2CSyncPacket;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
+import net.kyrptonaught.quickshulker.network.SetUsedSlotPacket;
+import net.kyrptonaught.quickshulker.api.ItemInventoryContainer;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 
@@ -76,6 +78,12 @@ public class QuickShulkerModClient implements ClientModInitializer {
             PlayerEnderChestContainer enderChestInventory = context.player().getEnderChestInventory();
             enderChestInventory.setItem(payload.slotId(), payload.itemStack());
         }));
+
+        // Lets the client-side click guard and slot highlight know which item is open.
+        PayloadTypeRegistry.playC2S().register(SetUsedSlotPacket.SET_USED_SLOT_ID, SetUsedSlotPacket.CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(SetUsedSlotPacket.SET_USED_SLOT_ID, (payload, context) ->
+                context.client().execute(() ->
+                        ((ItemInventoryContainer) context.player().containerMenu).QS$setUsedSlot(payload.playerInvSlot())));
 
         FabricLoader.getInstance().getEntrypoints(QuickShulkerMod.MOD_ID + "_client", RegisterQuickShulkerClient.class).forEach(RegisterQuickShulkerClient::registerClient);
     }

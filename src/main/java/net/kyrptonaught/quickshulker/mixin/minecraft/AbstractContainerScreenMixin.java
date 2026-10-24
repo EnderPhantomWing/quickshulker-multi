@@ -27,9 +27,13 @@
 
 package net.kyrptonaught.quickshulker.mixin.minecraft;
 
+import net.kyrptonaught.quickshulker.QuickShulkerMod;
+import net.kyrptonaught.quickshulker.api.ItemInventoryContainer;
 import net.kyrptonaught.quickshulker.util.MouseDraggedHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 //#if MC >= 1.21.10
 import net.minecraft.client.input.MouseButtonEvent;
 //#endif
@@ -133,5 +137,32 @@ public abstract class AbstractContainerScreenMixin {
     private void QS$drawForeground(GuiGraphics context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
         AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>) (Object) this;
         MouseDraggedHandler.beforeDrawForeground(screen, context, mouseX, mouseY);
+    }
+
+    @Inject(
+            //#if MC >= 26.4
+            //$$ method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;)V",
+            //#elseif MC >= 26.1
+            //$$ method = "extractSlot(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/inventory/Slot;II)V",
+            //#elseif MC >= 1.21.11
+            method = "renderSlot(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;II)V",
+            //#else
+            //$$ method = "renderSlot(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;)V",
+            //#endif
+            at = @At("HEAD")
+    )
+    //#if MC >= 26.4
+    //$$ private void QS$drawOpenedSlotBackground(GuiGraphicsExtractor context, Slot slot, CallbackInfo ci) {
+    //#elseif MC >= 1.21.11
+    private void QS$drawOpenedSlotBackground(GuiGraphics context, Slot slot, int mouseX, int mouseY, CallbackInfo ci) {
+    //#else
+    //$$ private void QS$drawOpenedSlotBackground(GuiGraphics context, Slot slot, CallbackInfo ci) {
+    //#endif
+        // Mark the slot holding the item whose menu is open, behind the item itself.
+        if (!QuickShulkerMod.getConfig().fillOpenedBackground) return;
+        int usedSlot = ((ItemInventoryContainer) ((AbstractContainerScreen<?>) (Object) this).getMenu()).QS$getUsedSlotInPlayerInv();
+        if (usedSlot >= 0 && slot.container instanceof Inventory && slot.getContainerSlot() == usedSlot) {
+            context.fill(slot.x, slot.y, slot.x + 16, slot.y + 16, 0xFF000000 | QuickShulkerMod.getConfig().colorBackground);
+        }
     }
 }

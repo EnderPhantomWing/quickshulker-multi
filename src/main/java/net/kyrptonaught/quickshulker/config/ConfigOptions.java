@@ -51,6 +51,10 @@ public class ConfigOptions implements AbstractConfigFile {
     public boolean playSound = true;
     @Comment("Right Clicking the opened shulker in your inv closes it")
     public boolean rightClickClose = false;
+    @Comment("Fill the background of the opened item's slot with a color")
+    public boolean fillOpenedBackground = true;
+    @Comment("Background color (RGB) of the opened item's slot")
+    public int colorBackground = 0x28F028;
     @Comment("Right Clicking a shulker with an item inserts it")
     public boolean supportsBundlingInsert = true;
     @Comment("Right Clicking an item with a shulker inserts it")

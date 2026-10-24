@@ -29,6 +29,7 @@ package net.kyrptonaught.quickshulker.api;
 
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
+import net.kyrptonaught.quickshulker.network.SetUsedSlotPacket;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -61,6 +62,7 @@ public class Util {
         if (qsData != null) {
             qsData.openConsumer.accept(player, stack);
             ((ItemInventoryContainer) player.containerMenu).QS$setUsedSlot(playerInvIndex);
+            SetUsedSlotPacket.send((ServerPlayer) player, playerInvIndex);
             player.containerMenu.addSlotListener(forceCloseScreenIfNotPresent(player, playerInvIndex, stack));
         }
     }

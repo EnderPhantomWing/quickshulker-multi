@@ -54,6 +54,7 @@ public class ModConfigMenu {
 
         ConfigSection optionsSection = new ConfigSection(configScreen, Component.translatable("key.quickshulker.config.category.options"));
         optionsSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.rightClickClose"), options.rightClickClose, false).setSaveConsumer(value -> options.rightClickClose = value));
+        optionsSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.fillOpenedBackground"), options.fillOpenedBackground, true).setSaveConsumer(value -> options.fillOpenedBackground = value));
         @SuppressWarnings("unchecked")
         SubItem<Boolean> subItem = (SubItem<Boolean>) optionsSection.addConfigItem(new SubItem<>(Component.translatable("key.quickshulker.config.category.bundleing"), true));
         subItem.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.supportsBundlingInsert"), options.supportsBundlingInsert, true).setSaveConsumer(value -> options.supportsBundlingInsert = value));
