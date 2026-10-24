@@ -38,6 +38,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.ClickType;
 //#endif
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -65,16 +66,36 @@ public abstract class ContainerMixin implements ItemInventoryContainer {
         this.playerInvSlot = playerInvSlotID;
     }
 
+    @Shadow
+    public abstract ItemStack getCarried();
+
+    // slotId counts from 0 at the top left of the menu (possibly in the opened container)
     @Inject(method = "clicked", at = @At("HEAD"), cancellable = true)
     //#if MC >= 26.1
     //$$ public void QS$onClick(int slotId, int button, ContainerInput actionType, Player player, CallbackInfo ci) {
     //#else
     public void QS$onClick(int slotId, int button, ClickType actionType, Player player, CallbackInfo ci) {
     //#endif
-        if (slotId > 0 && slotId < slots.size()) {
-            if (hasItem())
-                if (slots.get(slotId).container instanceof Inventory && slots.get(slotId).getContainerSlot() == playerInvSlot)
-                    ci.cancel();
+        if (!hasItem()) return;
+        // The opened item must not move while its menu is open.
+        if (slotId >= 0 && slotId < slots.size()
+                && slots.get(slotId).container instanceof Inventory && slots.get(slotId).getContainerSlot() == playerInvSlot) {
+            ci.cancel();
+        //#if MC >= 26.1
+        //$$ } else if (actionType == ContainerInput.SWAP && button == playerInvSlot) {
+        //#else
+        } else if (actionType == ClickType.SWAP && button == playerInvSlot) {
+        //#endif
+            // Number-key/offhand swaps name the opened item by button, not by slotId.
+            ci.cancel();
+        //#if MC >= 26.1
+        //$$ } else if (actionType == ContainerInput.PICKUP_ALL
+        //#else
+        } else if (actionType == ClickType.PICKUP_ALL
+        //#endif
+                && ItemStack.isSameItem(getCarried(), player.getInventory().getItem(playerInvSlot))) {
+            // Double-click collecting would pull the opened item onto the cursor.
+            ci.cancel();
         }
     }
 }
