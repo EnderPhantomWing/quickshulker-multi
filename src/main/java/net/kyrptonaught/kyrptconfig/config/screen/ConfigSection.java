@@ -150,7 +150,7 @@ public class ConfigSection extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        scrollOffset = Mth.clamp(scrollOffset + (int) (verticalAmount * 15), -calculateSectionHeight(), 0);
+        scrollOffset = Math.clamp(scrollOffset + (int) (verticalAmount * 15), -calculateSectionHeight(), 0);
         return true;
     }
 

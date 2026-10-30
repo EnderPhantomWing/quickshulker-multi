@@ -28,6 +28,7 @@
 package net.kyrptonaught.kyrptconfig.config.screen;
 
 //#if MC >= 1.21.6
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.util.ARGB;
 import net.minecraft.client.renderer.RenderPipelines;
 //#elseif MC >= 1.21.2
@@ -285,7 +286,7 @@ public class ConfigScreen extends Screen {
 
             float overflow = ((float) section.calculateSectionHeight() / this.height);
             int height = section.height - Mth.lerpInt(overflow, 0, section.height);
-            height = Mth.clamp(height, 20, section.height - 8);
+            height = Math.clamp(height, 20, section.height - 8);
 
             float percentage = (float) -section.scrollOffset / section.calculateSectionHeight();
             int y = Mth.lerpInt(percentage, 57, this.height - 30 - height);
