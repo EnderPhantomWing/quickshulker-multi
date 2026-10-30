@@ -61,7 +61,12 @@ public class BooleanItem extends ConfigItem<Boolean> {
             //#endif
         } else {
             boolWidget.setMessage(Component.translatable("key.kyrptconfig.config.false"));
-            final int RED = ARGB.opaque(16711680);
+            final int RED =
+                    //#if MC <= 1.20.6
+                    //$$ DyeColor.RED.getTextColor();
+                    //#else
+                    ARGB.opaque(16711680);
+                    //#endif
             boolWidget.setButtonColor(RED);
         }
     }
