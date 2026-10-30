@@ -31,7 +31,7 @@ import net.kyrptonaught.kyrptconfig.config.screen.NotSuckyButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
-//#if MC > 1.20.6
+//#if MC > 1.21.1
 import net.minecraft.util.ARGB;
 //#endif
 //#if MC >= 1.21.10
@@ -64,7 +64,7 @@ public class BooleanItem extends ConfigItem<Boolean> {
         } else {
             boolWidget.setMessage(Component.translatable("key.kyrptconfig.config.false"));
             final int RED =
-                    //#if MC <= 1.20.6
+                    //#if MC <= 1.21.1
                     //$$ DyeColor.RED.getTextColor();
                     //#else
                     ARGB.opaque(16711680);
