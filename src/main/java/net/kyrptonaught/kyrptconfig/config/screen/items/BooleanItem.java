@@ -30,10 +30,13 @@ package net.kyrptonaught.kyrptconfig.config.screen.items;
 import net.kyrptonaught.kyrptconfig.config.screen.NotSuckyButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.DyeColor;
 //#if MC >= 1.21.10
 import net.minecraft.client.input.MouseButtonEvent;
-//#else
+//#endif
+//#if MC >= 26.4
+//$$ import net.minecraft.world.item.component.FireworkExplosion;
 //#endif
 
 public class BooleanItem extends ConfigItem<Boolean> {
@@ -51,10 +54,15 @@ public class BooleanItem extends ConfigItem<Boolean> {
         super.setValue(value);
         if (value) {
             boolWidget.setMessage(Component.translatable("key.kyrptconfig.config.true"));
+            //#if MC >= 26.4
+            //$$ FireworkExplosion.defaultFireworkTint(DyeColor.LIME);
+            //#else
             boolWidget.setButtonColor(DyeColor.LIME.getFireworkColor());
+            //#endif
         } else {
             boolWidget.setMessage(Component.translatable("key.kyrptconfig.config.false"));
-            boolWidget.setButtonColor(DyeColor.RED.getTextColor());
+            final int RED = ARGB.opaque(16711680);
+            boolWidget.setButtonColor(RED);
         }
     }
 
