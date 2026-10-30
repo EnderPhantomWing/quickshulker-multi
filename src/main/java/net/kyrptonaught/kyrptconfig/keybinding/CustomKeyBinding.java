@@ -41,6 +41,7 @@ import org.lwjgl.glfw.GLFW;
 //#endif
 
 import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CustomKeyBinding implements CustomSerializable {
