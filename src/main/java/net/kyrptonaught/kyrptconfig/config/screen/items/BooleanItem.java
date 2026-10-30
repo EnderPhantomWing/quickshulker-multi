@@ -30,8 +30,10 @@ package net.kyrptonaught.kyrptconfig.config.screen.items;
 import net.kyrptonaught.kyrptconfig.config.screen.NotSuckyButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ARGB;
 import net.minecraft.world.item.DyeColor;
+//#if MC > 1.20.6
+import net.minecraft.util.ARGB;
+//#endif
 //#if MC >= 1.21.10
 import net.minecraft.client.input.MouseButtonEvent;
 //#endif
