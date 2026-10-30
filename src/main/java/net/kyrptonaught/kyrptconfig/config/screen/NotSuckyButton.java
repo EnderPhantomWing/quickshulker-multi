@@ -80,7 +80,9 @@ public class NotSuckyButton extends Button {
     }
 
     @Override
-    //#if MC >= 1.21.11
+    //#if MC >= 26.4
+    //$$ protected void extractContents(@NotNull GuiGraphicsExtractor context) {
+    //#elseif MC >= 1.21.11
     protected void renderContents(@NotNull GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
     //#else
     //$$ public void renderWidget(GuiGraphics context, int mouseX, int mouseY, float delta) {

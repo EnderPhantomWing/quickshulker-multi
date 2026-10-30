@@ -242,8 +242,16 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
+    //#if MC >= 26.4
+    //$$ public void extractRenderState(@NotNull GuiGraphicsExtractor context) {
+    //$$     int mouseX = context.mouseX();
+    //$$     int mouseY = context.mouseY();
+    //$$     float deltaTicks = context.partialTicks();
+    //$$     super.extractBackground(context);
+    //#else
     public void render(@NotNull GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         super.renderBackground(context, mouseX, mouseY, deltaTicks);
+    //#endif
 
         ConfigSection section = sections.get(selectedSection);
 
@@ -268,16 +276,29 @@ public class ConfigScreen extends Screen {
                     selectionBTN.setX(previousBTN.getX() + previousBTN.getWidth() + 3);
                 }
                 selectionBTN.disableHover = noHover;
+                //#if MC >= 26.4
+                //$$ selectionBTN.extractRenderState(context);
+                //#else
                 selectionBTN.render(context, mouseX, mouseY, deltaTicks);
+                //#endif
             }
             context.disableScissor();
+            //#if MC >= 26.4
+            //$$ scrollLeftBTN.extractRenderState(context);
+            //$$ scrollRightBTN.extractRenderState(context);
+            //#else
             scrollLeftBTN.render(context, mouseX, mouseY, deltaTicks);
             scrollRightBTN.render(context, mouseX, mouseY, deltaTicks);
+            //#endif
         } else {
             for (int i = 0; i < sections.size(); i++) {
                 NotSuckyButton selectionBTN = sections.get(i).sectionSelectionBTN;
                 selectionBTN.active = i != selectedSection;
+                //#if MC >= 26.4
+                //$$ selectionBTN.extractRenderState(context);
+                //#else
                 selectionBTN.render(context, mouseX, mouseY, deltaTicks);
+                //#endif
             }
         }
 
@@ -302,11 +323,19 @@ public class ConfigScreen extends Screen {
         }
 
         section.render2(context, 57, mouseX, mouseY, deltaTicks);
+        //#if MC >= 26.4
+        //$$ super.extractRenderState(context);
+        //#else
         super.render(context, mouseX, mouseY, deltaTicks);
+        //#endif
     }
 
     @Override
+    //#if MC >= 26.4
+    //$$ public void extractBackground(@NotNull GuiGraphicsExtractor context) {
+    //#else
     public void renderBackground(@NotNull GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
+    //#endif
     }
 
     //#if MC >= 1.21.6

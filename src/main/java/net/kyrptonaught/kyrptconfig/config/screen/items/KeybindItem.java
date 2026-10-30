@@ -187,7 +187,11 @@ public class KeybindItem extends ConfigItem<String> {
 
         this.keyButton.setX(resetButton.getX() - resetButton.getWidth() - (keyButton.getWidth() / 2) - 20);
 
+        //#if MC >= 26.4
+        //$$ keyButton.extractRenderState(context);
+        //#else
         keyButton.render(context, mouseX, mouseY, delta);
+        //#endif
 
         if (duplicate) {
             int m = keyButton.getX() - 6;

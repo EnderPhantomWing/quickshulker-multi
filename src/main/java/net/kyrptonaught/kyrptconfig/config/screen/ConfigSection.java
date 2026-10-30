@@ -162,7 +162,11 @@ public class ConfigSection extends Screen {
     }
 
     public void render(GuiGraphics context, int startY, int mouseX, int mouseY, float delta) {
+        //#if MC >= 26.4
+        //$$ super.extractRenderState(context);
+        //#else
         super.render(context, mouseX, mouseY, delta);
+        //#endif
         int runningY = scrollOffset + startY + 5;
         for (ConfigItem<?> configItem : configs) {
             // if (runningY + configItem.getSize() > 55 && runningY < 55 + height)
@@ -181,6 +185,10 @@ public class ConfigSection extends Screen {
     }
 
     @Override
+    //#if MC >= 26.4
+    //$$ public void extractBackground(@NotNull GuiGraphicsExtractor context) {
+    //#else
     public void renderBackground(@NotNull GuiGraphics context, int mouseX, int mouseY, float delta) {
+    //#endif
     }
 }

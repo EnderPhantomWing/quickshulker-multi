@@ -85,6 +85,10 @@ public class BooleanItem extends ConfigItem<Boolean> {
         this.boolWidget.setY(y);
         this.boolWidget.setX(resetButton.getX() - resetButton.getWidth() - (boolWidget.getWidth() / 2) - 20);
 
+        //#if MC >= 26.4
+        //$$ boolWidget.extractRenderState(context);
+        //#else
         boolWidget.render(context, mouseX, mouseY, delta);
+        //#endif
     }
 }

@@ -214,7 +214,11 @@ public abstract class ConfigItem<T> {
             this.resetButton.setY(y);
             this.resetButton.setX(width - resetButton.getWidth() - 20);
             resetButton.active = isValueDefault();
+            //#if MC >= 26.4
+            //$$ resetButton.extractRenderState(context);
+            //#else
             resetButton.render(context, mouseX, mouseY, delta);
+            //#endif
         }
 
     }
