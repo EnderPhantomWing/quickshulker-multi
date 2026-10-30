@@ -29,6 +29,8 @@ package net.kyrptonaught.kyrptconfig.config;
 
 import net.fabricmc.loader.api.FabricLoader;
 import lib.blue.endless.jankson.Jankson;
+import net.kyrptonaught.kyrptconfig.interfaces.AbstractConfigFile;
+import net.kyrptonaught.kyrptconfig.interfaces.JsonLoader;
 import net.minecraft.resources.Identifier;
 
 import java.io.IOException;

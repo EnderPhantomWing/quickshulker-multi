@@ -31,6 +31,7 @@ import lib.blue.endless.jankson.JsonElement;
 import lib.blue.endless.jankson.api.DeserializationException;
 import lib.blue.endless.jankson.impl.MarshallerImpl;
 import lib.blue.endless.jankson.magic.TypeMagic;
+import net.kyrptonaught.kyrptconfig.interfaces.CustomSerializable;
 
 public class CustomMarshaller extends MarshallerImpl {
 

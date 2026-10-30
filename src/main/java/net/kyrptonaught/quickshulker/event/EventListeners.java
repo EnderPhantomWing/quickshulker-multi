@@ -36,7 +36,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
 import net.kyrptonaught.quickshulker.api.ItemInventoryContainer;
-import net.kyrptonaught.quickshulker.api.Util;
+import net.kyrptonaught.quickshulker.api.util.Util;
 import net.kyrptonaught.quickshulker.util.EnderChestSyncHandler;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.server.level.ServerPlayer;

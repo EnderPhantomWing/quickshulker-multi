@@ -25,8 +25,9 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.api;
+package net.kyrptonaught.quickshulker.api.util;
 
+import net.kyrptonaught.quickshulker.api.CanBundleInsertItemFunction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;

@@ -28,6 +28,7 @@
 package net.kyrptonaught.kyrptconfig.config;
 
 import lib.blue.endless.jankson.Jankson;
+import net.kyrptonaught.kyrptconfig.interfaces.CustomSerializable;
 
 import java.lang.reflect.Field;
 

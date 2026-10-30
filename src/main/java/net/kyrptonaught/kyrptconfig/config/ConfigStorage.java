@@ -27,6 +27,9 @@
 
 package net.kyrptonaught.kyrptconfig.config;
 
+import net.kyrptonaught.kyrptconfig.interfaces.AbstractConfigFile;
+import net.kyrptonaught.kyrptconfig.interfaces.JsonLoader;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;

@@ -25,33 +25,16 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.api;
+package net.kyrptonaught.kyrptconfig.interfaces;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-import java.util.function.BiFunction;
+import java.io.InputStream;
 
-public class ModContainerLevelAccess implements ContainerLevelAccess {
-    public ItemStack stack;
-    public Player player;
-    public Level level;
-    public BlockPos pos;
+public interface JsonLoader {
 
-    public ModContainerLevelAccess(Player player, ItemStack itemStack) {
-        this.stack = itemStack;
-        this.player = player;
-        this.level = player.level();
-        this.pos = player.blockPosition();
-    }
+    AbstractConfigFile loadFromString(String input, Class<? extends AbstractConfigFile> output) throws Exception;
 
-    @Override
-    public <T> @NotNull Optional<T> evaluate(BiFunction<Level, BlockPos, T> getter) {
-        return Optional.of(getter.apply(level, pos));
-    }
+    AbstractConfigFile loadFromInputStream(InputStream input, Class<? extends AbstractConfigFile> output) throws Exception;
+
+    String toString(AbstractConfigFile config) throws Exception;
 }

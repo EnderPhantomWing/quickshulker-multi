@@ -25,16 +25,29 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package net.kyrptonaught.kyrptconfig.interfaces;
 
+import lib.blue.endless.jankson.JsonElement;
+import lib.blue.endless.jankson.api.DeserializationException;
+import net.kyrptonaught.kyrptconfig.config.CustomMarshaller;
 
-import java.io.InputStream;
+import java.lang.reflect.Field;
 
-public interface JsonLoader {
+public interface CustomSerializable {
 
-    AbstractConfigFile loadFromString(String input, Class<? extends AbstractConfigFile> output) throws Exception;
+    default JsonElement toJson(CustomMarshaller m) {
+        return m.serializeNonCustom(this);
+    }
 
-    AbstractConfigFile loadFromInputStream(InputStream input, Class<? extends AbstractConfigFile> output) throws Exception;
+    default CustomSerializable fromJson(CustomMarshaller m, JsonElement obj, Class<CustomSerializable> clazz) throws DeserializationException {
+        return m.marshallNonCustom(clazz, obj, false);
+    }
 
-    String toString(AbstractConfigFile config) throws Exception;
+    default boolean shouldSerializeField(Field field) {
+        return shouldSerializeField(field.getName());
+    }
+
+    default boolean shouldSerializeField(String field) {
+        return true;
+    }
 }

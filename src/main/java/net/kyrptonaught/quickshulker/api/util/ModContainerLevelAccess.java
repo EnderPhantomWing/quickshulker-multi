@@ -25,28 +25,33 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.kyrptconfig.config;
+package net.kyrptonaught.quickshulker.api.util;
 
-import lib.blue.endless.jankson.JsonElement;
-import lib.blue.endless.jankson.api.DeserializationException;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
+import java.util.Optional;
+import java.util.function.BiFunction;
 
-public interface CustomSerializable {
+public class ModContainerLevelAccess implements ContainerLevelAccess {
+    public ItemStack stack;
+    public Player player;
+    public Level level;
+    public BlockPos pos;
 
-    default JsonElement toJson(CustomMarshaller m) {
-        return m.serializeNonCustom(this);
+    public ModContainerLevelAccess(Player player, ItemStack itemStack) {
+        this.stack = itemStack;
+        this.player = player;
+        this.level = player.level();
+        this.pos = player.blockPosition();
     }
 
-    default CustomSerializable fromJson(CustomMarshaller m, JsonElement obj, Class<CustomSerializable> clazz) throws DeserializationException {
-        return m.marshallNonCustom(clazz, obj, false);
-    }
-
-    default boolean shouldSerializeField(Field field) {
-        return shouldSerializeField(field.getName());
-    }
-
-    default boolean shouldSerializeField(String field) {
-        return true;
+    @Override
+    public <T> @NotNull Optional<T> evaluate(BiFunction<Level, BlockPos, T> getter) {
+        return Optional.of(getter.apply(level, pos));
     }
 }

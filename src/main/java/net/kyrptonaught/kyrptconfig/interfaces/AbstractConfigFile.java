@@ -25,13 +25,8 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.api;
+package net.kyrptonaught.kyrptconfig.interfaces;
 
-import net.minecraft.world.item.ItemStack;
+public interface AbstractConfigFile {
 
-//Dummy to restore compat to mods already using this
-public class ItemStackInventory extends net.kyrptonaught.shulkerutils.ItemStackInventory {
-    public ItemStackInventory(ItemStack stack, int SIZE) {
-        super(stack, SIZE);
-    }
 }

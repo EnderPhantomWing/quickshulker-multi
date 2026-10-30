@@ -30,7 +30,7 @@ package net.kyrptonaught.kyrptconfig.keybinding;
 import lib.blue.endless.jankson.JsonElement;
 import lib.blue.endless.jankson.JsonPrimitive;
 import net.kyrptonaught.kyrptconfig.config.CustomMarshaller;
-import net.kyrptonaught.kyrptconfig.config.CustomSerializable;
+import net.kyrptonaught.kyrptconfig.interfaces.CustomSerializable;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
 //#if MC < 26.3
@@ -40,7 +40,6 @@ import org.lwjgl.glfw.GLFW;
 //$$ import org.lwjgl.sdl.SDLMouse;
 //#endif
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 

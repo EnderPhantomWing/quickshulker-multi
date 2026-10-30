@@ -28,6 +28,8 @@
 package net.kyrptonaught.kyrptconfig.config;
 
 import lib.blue.endless.jankson.Jankson;
+import net.kyrptonaught.kyrptconfig.interfaces.AbstractConfigFile;
+import net.kyrptonaught.kyrptconfig.interfaces.JsonLoader;
 
 import java.io.InputStream;
 

@@ -35,9 +35,9 @@ import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 //#endif
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.kyrptonaught.quickshulker.api.QuickOpenableRegistry;
-import net.kyrptonaught.quickshulker.api.QuickShulkerData;
-import net.kyrptonaught.quickshulker.api.Util;
+import net.kyrptonaught.quickshulker.api.util.QuickOpenableRegistry;
+import net.kyrptonaught.quickshulker.api.util.QuickShulkerData;
+import net.kyrptonaught.quickshulker.api.util.Util;
 import net.kyrptonaught.shulkerutils.ShulkerUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Container;

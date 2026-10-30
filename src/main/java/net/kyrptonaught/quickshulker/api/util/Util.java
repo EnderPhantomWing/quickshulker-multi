@@ -25,9 +25,10 @@
  * SOFTWARE.
  */
 
-package net.kyrptonaught.quickshulker.api;
+package net.kyrptonaught.quickshulker.api.util;
 
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
+import net.kyrptonaught.quickshulker.api.ItemInventoryContainer;
 import net.kyrptonaught.quickshulker.network.OpenInventoryPacket;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
