@@ -30,6 +30,7 @@ package net.kyrptonaught.quickshulker.config;
 import net.kyrptonaught.kyrptconfig.config.screen.ConfigScreen;
 import net.kyrptonaught.kyrptconfig.config.screen.ConfigSection;
 import net.kyrptonaught.kyrptconfig.config.screen.items.BooleanItem;
+import net.kyrptonaught.kyrptconfig.config.screen.items.ColorItem;
 import net.kyrptonaught.kyrptconfig.config.screen.items.KeybindItem;
 import net.kyrptonaught.kyrptconfig.config.screen.items.SubItem;
 import net.kyrptonaught.quickshulker.QuickShulkerMod;
@@ -55,6 +56,7 @@ public class ModConfigMenu {
         ConfigSection optionsSection = new ConfigSection(configScreen, Component.translatable("key.quickshulker.config.category.options"));
         optionsSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.rightClickClose"), options.rightClickClose, false).setSaveConsumer(value -> options.rightClickClose = value));
         optionsSection.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.fillOpenedBackground"), options.fillOpenedBackground, true).setSaveConsumer(value -> options.fillOpenedBackground = value));
+        optionsSection.addConfigItem(new ColorItem(Component.translatable("key.quickshulker.config.colorBackground"), options.colorBackground, 0x28F028).setSaveConsumer(value -> options.colorBackground = value));
         @SuppressWarnings("unchecked")
         SubItem<Boolean> subItem = (SubItem<Boolean>) optionsSection.addConfigItem(new SubItem<>(Component.translatable("key.quickshulker.config.category.bundleing"), true));
         subItem.addConfigItem(new BooleanItem(Component.translatable("key.quickshulker.config.supportsBundlingInsert"), options.supportsBundlingInsert, true).setSaveConsumer(value -> options.supportsBundlingInsert = value));
